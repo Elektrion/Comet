@@ -8,6 +8,7 @@
 #include <functional>
 #include <chrono>
 #include <ctime>
+#include <memory>
 
 #include <vector>
 #include <array>
