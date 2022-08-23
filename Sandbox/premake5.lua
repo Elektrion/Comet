@@ -22,17 +22,23 @@ project "Sandbox"
 	}
 
 
-	filter "system:windows"
-		defines "CMT_SYSTEM_WINDOWS"
+	filter "platforms:Windows"
+		defines "CMT_PLATFORM_WINDOWS"
 		systemversion "latest"
 
 	filter "configurations:Debug"
-		defines "CMT_DEBUG"
+		defines {
+			"CMT_DEBUG", 
+			"CMT_ENABLE_ASSERTS"
+		}
 		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
-		defines "CMT_RELEASE"
+		defines {
+			"CMT_RELEASE", 
+			"CMT_ENABLE_ASSERTS"
+		}
 		runtime "Release"
 		optimize "On"
 
