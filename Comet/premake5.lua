@@ -13,19 +13,19 @@ project "Comet"
 	files {
 		"src/**.h", 
 		"src/**.cpp"
-	}  
+	}
 
 	includedirs {
 		"src"
 	}
 
 	links {
-
+		
 	}
 
 
-	filter "system:windows"
-		defines "CMT_SYSTEM_WINDOWS"
+	filter "platforms:Windows"
+		defines "CMT_PLATFORM_WINDOWS"
 		systemversion "latest"
 
 	filter "configurations:Debug"

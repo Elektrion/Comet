@@ -6,6 +6,8 @@
 #include <fstream>
 #include <algorithm>
 #include <functional>
+#include <chrono>
+#include <ctime>
 
 #include <vector>
 #include <array>
@@ -13,3 +15,7 @@
 #include <unordered_map>
 #include <span>
 #include <ranges>
+
+#ifdef CMT_PLATFORM_WINDOWS
+#include <Windows.h>
+#endif

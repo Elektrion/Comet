@@ -1,5 +1,4 @@
 workspace "Comet"
-	architecture "x86_64"
 	startproject "Sandbox"
 	
 	configurations {
@@ -8,9 +7,17 @@ workspace "Comet"
 		"Dist"
 	}
 
+	platforms {
+		"Windows"
+	}
+
 	outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 	includedir = {}
+
+	filter "platforms:Windows"
+		system "Windows"
+		architecture "x86_64"
 
 include "Comet"
 include "Sandbox"
