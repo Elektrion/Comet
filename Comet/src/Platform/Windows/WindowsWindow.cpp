@@ -1,6 +1,8 @@
 #include "cmt_pch.h"
 #include "WindowsWindow.h"
 
+#include "Comet/Event/WindowEvent.h"
+
 namespace comet {
 
 	WindowsWindow::WindowsWindow(const WindowProperties& props) {
@@ -19,6 +21,10 @@ namespace comet {
 	void WindowsWindow::onUpdate(Timestep dt) {
 		glfwSwapBuffers(window);
 		glfwPollEvents();
+	}
+
+	void WindowsWindow::setEventCallback(EventCallbackFn callback) {
+		data.event_callback = callback;
 	}
 
 	static int glfw_window_count = 0;
@@ -41,7 +47,17 @@ namespace comet {
 		data.height = props.height;
 		data.title = props.title;
 		data.vsync = true;
-		glfwSwapInterval(1);
+
+		glfwSetWindowUserPointer(window, &data);
+
+		glfwSetWindowCloseCallback(window, [](GLFWwindow* window) {
+			WindowData* data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+			WindowClosedEvent e;
+			data->event_callback(e);
+		});
+
+		// create context first!
+		setVsync(true);
 	}
 
 	void WindowsWindow::shutdown() {

@@ -16,6 +16,7 @@ namespace comet {
 
 		instance = this;
 		window = Window::createWindow();
+		window->setEventCallback(std::bind(&Application::onEvent, this, std::placeholders::_1));
 	}
 
 	void Application::run() {
@@ -34,6 +35,16 @@ namespace comet {
 		}
 
 		running = false;
+	}
+
+	void Application::onEvent(Event& e) {
+		EventDispatcher dispatcher(e);
+		dispatcher.dispatch<WindowClosedEvent>(std::bind(&Application::onWindowClosed, this, std::placeholders::_1));
+	}
+
+	bool Application::onWindowClosed(WindowClosedEvent& e) {
+		running = false;
+		return true;
 	}
 
 }
