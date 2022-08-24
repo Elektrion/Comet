@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Comet/Core/Window.h"
+
 namespace comet {
 
 	class Application {
@@ -8,9 +10,14 @@ namespace comet {
 		virtual ~Application() = default;
 
 		void run();
+	public:
+		static inline Application* get() { return instance; }
 	private:
 		bool running;
+		Scope<Window> window;
+	private:
+		static Application* instance;
 	};
 
-	comet::Application* createApplication();
+	Application* createApplication();
 }

@@ -49,13 +49,13 @@ namespace comet {
 
 	template<typename T> using Ref = std::shared_ptr<T>;
 
-	template<typename T, typename... Types> inline Ref<T> makeRef(const Types&&... args) {
+	template<typename T, typename... Types> inline Ref<T> makeRef(Types&&... args) {
 		return std::make_shared<T>(std::forward<Types>(args)...);
 	}
 
 	template<typename T> using Scope = std::unique_ptr<T>;
 
-	template<typename T, typename... Types> inline Scope<T> makeScope(const Types&&... args) {
+	template<typename T, typename... Types> inline Scope<T> makeScope(Types&&... args) {
 		return std::make_unique<T>(std::forward<Types>(args)...);
 	}
 

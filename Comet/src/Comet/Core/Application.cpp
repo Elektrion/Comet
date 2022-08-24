@@ -6,7 +6,17 @@
 
 namespace comet {
 
-	Application::Application() : running(false) {}
+	Application* Application::instance = nullptr;
+
+	Application::Application() : running(false) {
+		if(instance) {
+			CMT_CORE_ERROR("Application has already been created!");
+			return;
+		}
+
+		instance = this;
+		window = Window::createWindow();
+	}
 
 	void Application::run() {
 		CMT_CORE_ASSERT(!running, "Application is already running!");
