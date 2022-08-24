@@ -2,6 +2,7 @@
 
 #include <string>
 #include <functional>
+#include <ostream>
 
 namespace comet {
 
@@ -38,6 +39,11 @@ namespace comet {
 	private:
 		bool handled;
 	};
+
+	inline std::ostream& operator<<(std::ostream& os, const Event& e) {
+		os << e.toString();
+		return os;
+	}
 
 	template<typename T> using EventFn = std::function<bool(T&)>;
 

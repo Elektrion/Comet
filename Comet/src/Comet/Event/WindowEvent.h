@@ -38,19 +38,29 @@ namespace comet {
 
 	class WindowMinimizedEvent : public WindowEvent {
 	public:
-		constexpr inline WindowMinimizedEvent() = default;
+		constexpr inline WindowMinimizedEvent(bool minimized) : minimized(minimized) {}
 
 		static constexpr inline EventType getStaticType() { return window_minimized; }
 		virtual constexpr inline EventType getType() const override { return window_minimized; }
 		virtual constexpr inline std::string getName() const override { return "window_minimized"; }
+		virtual constexpr inline std::string toString() const override { return getName() + "(minimized:" + (minimized ? "true" : "false") + ")"; }
+
+		constexpr inline bool isMinimized() const { return minimized; }
+	private:
+		bool minimized;
 	};
 
 	class WindowMaximizedEvent : public WindowEvent {
 	public:
-		constexpr inline WindowMaximizedEvent() = default;
+		constexpr inline WindowMaximizedEvent(bool maximized) : maximized(maximized) {}
 
 		static constexpr inline EventType getStaticType() { return window_maximized; }
 		virtual constexpr inline EventType getType() const override { return window_maximized; }
 		virtual constexpr inline std::string getName() const override { return "window_maximized"; }
+		virtual constexpr inline std::string toString() const override { return getName() + "(maximized:" + (maximized ? "true" : "false") + ")"; }
+
+		constexpr inline bool isMaximized() const { return maximized; }
+	private:
+		bool maximized;
 	};
 }

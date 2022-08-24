@@ -46,6 +46,8 @@ namespace comet {
 		static constexpr inline EventType getStaticType() { return key_typed; }
 		virtual constexpr inline EventType getType() const override { return key_typed; }
 		virtual constexpr inline std::string getName() const override { return "key_typed"; }
+
+		constexpr inline uint32_t getUnicodeCharacter() const { return getCode(); }
 	};
 
 }

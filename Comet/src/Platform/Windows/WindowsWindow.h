@@ -16,7 +16,13 @@ namespace comet {
 		virtual inline uint32_t getWidth() const override { return data.width; }
 		virtual inline uint32_t getHeight() const override { return data.height; }
 		virtual bool isVsyncEnabled() const override { return data.vsync; };
+		virtual bool isMinimized() const override { return data.minimized; }
+		virtual bool isMaximized() const override { return data.maximized; }
+
 		virtual void setVsync(bool vsync) override;
+		virtual void setMinimized(bool minimized) override;
+		virtual void setMaximized(bool maximized) override;
+
 		virtual void onUpdate(Timestep dt) override;
 		virtual void setEventCallback(EventCallbackFn callback) override;
 	private:
@@ -28,6 +34,8 @@ namespace comet {
 			uint32_t width = 1270;
 			uint32_t height = 720;
 			bool vsync = true;
+			bool minimized = false;
+			bool maximized = false;
 			EventCallbackFn event_callback = [](Event&) {};
 		};
 
