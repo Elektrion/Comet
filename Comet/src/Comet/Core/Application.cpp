@@ -30,7 +30,7 @@ namespace comet {
 			last_timepoint = timepoint;
 			CMT_CORE_TRACE("Delta time: {0}", dt);
 
-
+			window->onUpdate(dt);
 		}
 
 		running = false;

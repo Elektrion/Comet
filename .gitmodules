@@ -1,0 +1,3 @@
+[submodule "glfw"]
+	path = Comet/vendor/glfw
+	url = https://github.com/Elektrion/glfw.git

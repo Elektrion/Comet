@@ -16,11 +16,12 @@ project "Comet"
 	}
 
 	includedirs {
-		"src"
+		"src", 
+		"%{includedir.glfw}"
 	}
 
 	links {
-		
+		"glfw"
 	}
 
 

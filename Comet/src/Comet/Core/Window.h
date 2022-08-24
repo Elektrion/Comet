@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Comet/Core/Core.h"
+#include "Comet/Core/Time.h"
 
 namespace comet {
 
@@ -19,6 +20,9 @@ namespace comet {
 
 		virtual uint32_t getWidth() const = 0;
 		virtual uint32_t getHeight() const = 0;
+		virtual bool isVsyncEnabled() const = 0;
+		virtual void setVsync(bool vsync) = 0;
+		virtual void onUpdate(Timestep dt) = 0;
 	public:
 		static Scope<Window> createWindow(const WindowProperties& props = {});
 	};
