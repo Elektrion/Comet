@@ -5,6 +5,8 @@
 
 #include "Comet/Event/Event.h"
 
+#include "Comet/Renderer/GraphicsContext.h"
+
 namespace comet {
 
 	class Window {
@@ -13,6 +15,7 @@ namespace comet {
 			std::string title = "Comet Engine";
 			uint32_t width = 1280;
 			uint32_t height = 720;
+			bool vsync = true;
 		};
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;
@@ -29,6 +32,8 @@ namespace comet {
 		virtual void setVsync(bool vsync) = 0;
 		virtual void setMinimized(bool minimized) = 0;
 		virtual void setMaximized(bool maximized) = 0;
+
+		virtual void* getNativeWindow() const = 0;
 
 		virtual void onUpdate(Timestep dt) = 0;
 		virtual void setEventCallback(EventCallbackFn callback) = 0;

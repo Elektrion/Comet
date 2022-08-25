@@ -4,6 +4,8 @@
 #include "Comet/Core/Core.h"
 #include "Comet/Core/Time.h"
 
+#include "Comet/Renderer/RenderCommand.h"
+
 namespace comet {
 
 	Application* Application::instance = nullptr;
@@ -14,9 +16,13 @@ namespace comet {
 			return;
 		}
 
+		RenderAPI::init();
+		RenderCommand::init();
+
 		instance = this;
 		window = Window::createWindow();
 		window->setEventCallback(std::bind(&Application::onEvent, this, std::placeholders::_1));
+
 	}
 
 	void Application::run() {
@@ -30,6 +36,9 @@ namespace comet {
 			Timestep dt = std::chrono::duration_cast<std::chrono::duration<float, std::chrono::milliseconds::period>>(timepoint - last_timepoint).count();
 			last_timepoint = timepoint;
 			// CMT_CORE_TRACE("Delta time: {0}", dt);
+
+			RenderCommand::setClearColor(1.0f, 0.0f, 0.0f);
+			RenderCommand::clear();
 
 			window->onUpdate(dt);
 		}

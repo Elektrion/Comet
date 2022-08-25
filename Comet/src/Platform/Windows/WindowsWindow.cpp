@@ -37,7 +37,7 @@ namespace comet {
 	}
 
 	void WindowsWindow::onUpdate(Timestep dt) {
-		glfwSwapBuffers(window);
+		context->swapBuffers();
 		glfwPollEvents();
 	}
 
@@ -59,14 +59,22 @@ namespace comet {
 			glfw_window_count++;
 		}
 
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		window = glfwCreateWindow(props.width, props.height, props.title.c_str(), nullptr, nullptr);
 		CMT_CORE_ASSERT(window, "Failed to create the glfw window!");
 		data.width = props.width;
 		data.height = props.height;
 		data.title = props.title;
-		data.vsync = true;
+		data.vsync = props.vsync;
 		data.minimized = false;
 		data.maximized = false;
+		
+		context = GraphicsContext::createContext(window);
+		context->init();
+
+		setVsync(data.vsync);
 
 		glfwSetWindowUserPointer(window, &data);
 
@@ -158,9 +166,6 @@ namespace comet {
 			MouseScrolledEvent e{ int32_t(xoffset), int32_t(yoffset) };
 			data->event_callback(e);
 		});
-
-		// create context first!
-		setVsync(true);
 	}
 
 	void WindowsWindow::shutdown() {
