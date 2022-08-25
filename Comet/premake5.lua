@@ -15,19 +15,34 @@ project "Comet"
 		"src/**.cpp"
 	}
 
+	removefiles {
+		"src/Platform/**"
+	}
+
 	includedirs {
 		"src", 
-		"%{includedir.glfw}"
+		"%{includedir.glfw}", 
+		"%{includedir.glad}"
 	}
 
 	links {
-		"glfw"
+		"glfw", 
+		"glad"
 	}
 
 
 	filter "platforms:Windows"
-		defines "CMT_PLATFORM_WINDOWS"
+		defines {
+			"CMT_PLATFORM_WINDOWS", 
+			"GLFW_INCLUDE_NONE"
+		}
 		systemversion "latest"
+		files {
+			"src/Platform/Windows/**.h", 
+			"src/Platform/Windows/**.cpp", 
+			"src/Platform/OpenGL/**.h", 
+			"src/Platform/OpenGL/**.cpp"
+		}
 
 	filter "configurations:Debug"
 		defines {
