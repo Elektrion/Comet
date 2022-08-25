@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Comet/Core/LayerStack.h"
 #include "Comet/Core/Window.h"
 
 #include "Comet/Event/Event.h"
@@ -12,6 +13,11 @@ namespace comet {
 		Application();
 		virtual ~Application() = default;
 
+		inline void pushLayer(Ref<Layer> layer) { layerstack.push(layer); }
+		inline void pushOverlay(Ref<Layer> layer) { layerstack.pushOverlay(layer); }
+		inline void popLayer(Ref<Layer> layer) { layerstack.pop(layer); }
+		inline void popOverlay(Ref<Layer> layer) { layerstack.popOverlay(layer); }
+
 		void run();
 	public:
 		static inline Application* get() { return instance; }
@@ -21,6 +27,7 @@ namespace comet {
 	private:
 		bool running;
 		Scope<Window> window;
+		LayerStack layerstack;
 	private:
 		static Application* instance;
 	};

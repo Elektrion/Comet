@@ -1,10 +1,30 @@
 #include "Comet.h"
 #include "CometEntrypoint.h"
 
+class SandboxLayer : public comet::Layer {
+public:
+	virtual void onAttatch() override {
+		
+	}
+
+	virtual void onDetatch() override {
+		
+	}
+
+	virtual void onUpdate(comet::Timestep dt) override {
+		CMT_INFO("Update (Frametime: {0})", dt);
+	}
+
+	virtual void onEvent(comet::Event& e) override {
+		
+	}
+};
+
+
 class SandboxApplication : public comet::Application {
 public:
 	SandboxApplication() {
-		CMT_INFO("Creating sandbox application");
+		pushLayer(comet::makeRef<SandboxLayer>());
 	}
 };
 

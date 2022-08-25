@@ -10,7 +10,7 @@ namespace comet {
 
 	Application* Application::instance = nullptr;
 
-	Application::Application() : running(false) {
+	Application::Application() : running(false), window(nullptr), layerstack() {
 		if(instance) {
 			CMT_CORE_ERROR("Application has already been created!");
 			return;
@@ -22,7 +22,6 @@ namespace comet {
 		instance = this;
 		window = Window::createWindow();
 		window->setEventCallback(std::bind(&Application::onEvent, this, std::placeholders::_1));
-
 	}
 
 	void Application::run() {
@@ -37,8 +36,12 @@ namespace comet {
 			last_timepoint = timepoint;
 			// CMT_CORE_TRACE("Delta time: {0}", dt);
 
-			RenderCommand::setClearColor(1.0f, 0.0f, 0.0f);
+			RenderCommand::setClearColor(0.3f, 0.1f, 0.7f);
 			RenderCommand::clear();
+
+			for(auto layer : layerstack) {
+				layer->onUpdate(dt);
+			}
 
 			window->onUpdate(dt);
 		}
@@ -47,9 +50,13 @@ namespace comet {
 	}
 
 	void Application::onEvent(Event& e) {
-		CMT_CORE_INFO("Event: {0}", e);
 		EventDispatcher dispatcher(e);
 		dispatcher.dispatch<WindowClosedEvent>(std::bind(&Application::onWindowClosed, this, std::placeholders::_1));
+
+		for(auto layer : std::ranges::views::reverse(layerstack)) {
+			if(!e.isHandled())
+				layer->onEvent(e);
+		}
 	}
 
 	bool Application::onWindowClosed(WindowClosedEvent& e) {
