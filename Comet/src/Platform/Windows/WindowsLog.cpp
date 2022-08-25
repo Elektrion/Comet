@@ -58,6 +58,7 @@ namespace comet {
 
 	}
 
+
 	Logger::Logger(const std::string& name) : name(name) {}
 
 	void Logger::push_message(Mode mode, const std::string& message, console_colors::console_color_t color) {

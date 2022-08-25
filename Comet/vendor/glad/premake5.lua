@@ -17,7 +17,7 @@ project "glad"
 	}
 	
 	
-	filter "platforms:Windows"
+	filter "system:windows"
 		systemversion "latest"
 	
 	filter "configurations:Debug"

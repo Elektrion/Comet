@@ -31,12 +31,12 @@ project "Comet"
 	}
 
 
-	filter "platforms:Windows"
+	filter "system:windows"
+		systemversion "latest"
 		defines {
 			"CMT_PLATFORM_WINDOWS", 
 			"GLFW_INCLUDE_NONE"
 		}
-		systemversion "latest"
 		files {
 			"src/Platform/Windows/**.h", 
 			"src/Platform/Windows/**.cpp", 

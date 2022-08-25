@@ -24,6 +24,10 @@ namespace comet {
 		window->setEventCallback(std::bind(&Application::onEvent, this, std::placeholders::_1));
 	}
 
+	Application::~Application() {
+		
+	}
+
 	void Application::run() {
 		CMT_CORE_ASSERT(!running, "Application is already running!");
 
@@ -34,14 +38,12 @@ namespace comet {
 			auto timepoint = std::chrono::high_resolution_clock::now();
 			Timestep dt = std::chrono::duration_cast<std::chrono::duration<float, std::chrono::milliseconds::period>>(timepoint - last_timepoint).count();
 			last_timepoint = timepoint;
-			// CMT_CORE_TRACE("Delta time: {0}", dt);
 
 			RenderCommand::setClearColor(0.3f, 0.1f, 0.7f);
 			RenderCommand::clear();
 
-			for(auto layer : layerstack) {
+			for(auto layer : layerstack)
 				layer->onUpdate(dt);
-			}
 
 			window->onUpdate(dt);
 		}
@@ -53,9 +55,9 @@ namespace comet {
 		EventDispatcher dispatcher(e);
 		dispatcher.dispatch<WindowClosedEvent>(std::bind(&Application::onWindowClosed, this, std::placeholders::_1));
 
-		for(auto layer : std::ranges::views::reverse(layerstack)) {
+		for(auto layer = layerstack.rbegin(); layer != layerstack.rend(); layer++) {
 			if(!e.isHandled())
-				layer->onEvent(e);
+				(*layer)->onEvent(e);
 		}
 	}
 

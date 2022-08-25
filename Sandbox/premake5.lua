@@ -22,9 +22,9 @@ project "Sandbox"
 	}
 
 
-	filter "platforms:Windows"
-		defines "CMT_PLATFORM_WINDOWS"
+	filter "system:windows"
 		systemversion "latest"
+		defines "CMT_PLATFORM_WINDOWS"
 
 	filter "configurations:Debug"
 		defines {

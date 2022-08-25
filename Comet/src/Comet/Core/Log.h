@@ -60,6 +60,7 @@ namespace comet {
 		console_color_t background_faint_green;
 	}
 
+
 	class Logger {
 	public:
 		Logger(const std::string& name);
@@ -113,7 +114,7 @@ namespace comet {
 			return "[Log message was ill-formed, for more information see the above log message]";
 		}
 
-		constexpr inline std::string process_message(size_t arg_pos, const std::string& format) { return format; }
+		inline std::string process_message(size_t arg_pos, const std::string& format) { return format; }
 
 		void push_message(Mode mode, const std::string& message, console_colors::console_color_t color = console_colors::none);
 	private:
@@ -122,4 +123,5 @@ namespace comet {
 
 	extern Logger core_logger;
 	extern Logger client_logger;
+
 }

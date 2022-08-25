@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Comet/Renderer/GraphicsContext.h"
+#include "GLFW/glfw3.h"
 
-#include <GLFW/glfw3.h>
+#include "Comet/Renderer/GraphicsContext.h"
 
 namespace comet {
 

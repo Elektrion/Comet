@@ -7,18 +7,13 @@ workspace "Comet"
 		"Dist"
 	}
 
-	platforms {
-		"Windows"
-	}
-
-	outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+	outputdir = "%{cfg.buildcfg}-%{cfg.system}"
 
 	includedir = {}
 	includedir["glfw"] = "%{wks.location}/Comet/vendor/glfw/include"
 	includedir["glad"] = "%{wks.location}/Comet/vendor/glad/include"
 
-	filter "platforms:Windows"
-		system "Windows"
+	filter "system:windows"
 		architecture "x86_64"
 	
 	group "Dependencies"

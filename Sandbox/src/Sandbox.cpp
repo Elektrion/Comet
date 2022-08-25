@@ -12,7 +12,7 @@ public:
 	}
 
 	virtual void onUpdate(comet::Timestep dt) override {
-		CMT_INFO("Update (Frametime: {0})", dt);
+		
 	}
 
 	virtual void onEvent(comet::Event& e) override {
@@ -27,6 +27,7 @@ public:
 		pushLayer(comet::makeRef<SandboxLayer>());
 	}
 };
+
 
 comet::Application* comet::createApplication() {
 	return new SandboxApplication();

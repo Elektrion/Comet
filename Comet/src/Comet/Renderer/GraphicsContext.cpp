@@ -4,10 +4,10 @@
 #include "Comet/Renderer/RenderAPI.h"
 
 #if defined(CMT_PLATFORM_WINDOWS)
-#include <GLFW/glfw3.h>
-#include "Platform/OpenGL/OpenGLContext.h"
+	#include "GLFW/glfw3.h"
+	#include "Platform/OpenGL/OpenGLContext.h"
 #else
-#error "Platform not supported!"
+	#error "Platform not supported!"
 #endif
 
 namespace comet {

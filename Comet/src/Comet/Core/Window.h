@@ -5,17 +5,17 @@
 
 #include "Comet/Event/Event.h"
 
-#include "Comet/Renderer/GraphicsContext.h"
-
 namespace comet {
 
 	class Window {
 	public:
 		struct WindowProperties {
-			std::string title = "Comet Engine";
-			uint32_t width = 1280;
-			uint32_t height = 720;
-			bool vsync = true;
+			std::string title;
+			uint32_t width;
+			uint32_t height;
+			bool vsync;
+
+			WindowProperties() : title("Comet Engine"), width(1280), height(720), vsync(true) {}
 		};
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;

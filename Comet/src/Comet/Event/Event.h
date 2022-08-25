@@ -1,8 +1,8 @@
 #pragma once
 
 #include <string>
-#include <functional>
 #include <ostream>
+#include <functional>
 
 namespace comet {
 
@@ -20,6 +20,7 @@ namespace comet {
 		mouse_button_event = 16
 	};
 
+
 	class Event {
 	public:
 		
@@ -29,30 +30,31 @@ namespace comet {
 		virtual EventType getType() const = 0;
 		virtual std::string getName() const = 0;
 		virtual uint32_t getCategoryFlags() const = 0;
-		virtual constexpr inline std::string toString() const { return getName(); }
+		virtual inline std::string toString() const { return getName(); }
 
-		constexpr inline bool isInCategory(EventCategory category) const { return getCategoryFlags() & category; }
-		constexpr inline void setHandled() { handled = true; }
-		constexpr inline bool isHandled() const { return handled; }
+		inline bool isInCategory(EventCategory category) const { return getCategoryFlags() & category; }
+		inline void setHandled() { handled = true; }
+		inline bool isHandled() const { return handled; }
 	protected:
-		constexpr inline Event() : handled(false) {}
+		inline Event() : handled(false) {}
 	private:
 		bool handled;
 	};
+
 
 	inline std::ostream& operator<<(std::ostream& os, const Event& e) {
 		os << e.toString();
 		return os;
 	}
 
+
 	template<typename T> using EventFn = std::function<bool(T&)>;
 
 	class EventDispatcher {
 	public:
+		inline EventDispatcher(Event& e) : e(e) {}
 
-		constexpr inline EventDispatcher(Event& e) : e(e) {}
-
-		template<typename T> constexpr inline bool dispatch(EventFn<T> func) const requires(std::is_base_of_v<Event, T>) {
+		template<typename T> inline bool dispatch(EventFn<T> func) const requires(std::is_base_of_v<Event, T>) {
 			if((e.getType() == T::getStaticType()) && !e.isHandled())
 				if(func(static_cast<T&>(e)))
 					e.setHandled();

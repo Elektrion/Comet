@@ -1,9 +1,9 @@
 #include "cmt_pch.h"
 #include "WindowsWindow.h"
 
-#include "Comet/Event/WindowEvent.h"
 #include "Comet/Event/KeyEvent.h"
 #include "Comet/Event/MouseEvent.h"
+#include "Comet/Event/WindowEvent.h"
 
 namespace comet {
 
@@ -78,7 +78,7 @@ namespace comet {
 
 		glfwSetWindowUserPointer(window, &data);
 
-		// Window callbacks
+		// window callbacks
 
 		glfwSetWindowCloseCallback(window, [](GLFWwindow* window) {
 			WindowData* data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));

@@ -11,7 +11,7 @@ namespace comet {
 	class Application {
 	public:
 		Application();
-		virtual ~Application() = default;
+		virtual ~Application();
 
 		inline void pushLayer(Ref<Layer> layer) { layerstack.push(layer); }
 		inline void pushOverlay(Ref<Layer> layer) { layerstack.pushOverlay(layer); }
@@ -33,4 +33,5 @@ namespace comet {
 	};
 
 	Application* createApplication();
+
 }

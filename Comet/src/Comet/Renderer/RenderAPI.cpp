@@ -2,9 +2,9 @@
 #include "RenderAPI.h"
 
 #if defined(CMT_PLATFORM_WINDOWS)
-#include "Platform/OpenGL/OpenGLRenderAPI.h"
+	#include "Platform/OpenGL/OpenGLRenderAPI.h"
 #else
-#error "Platform not supported!"
+	#error "Platform not supported!"
 #endif
 
 namespace comet {

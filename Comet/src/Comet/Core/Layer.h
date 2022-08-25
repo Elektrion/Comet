@@ -8,6 +8,8 @@ namespace comet {
 
 	class Layer {
 	public:
+		virtual ~Layer() = default;
+
 		virtual void onAttatch() {}
 		virtual void onDetatch() {}
 

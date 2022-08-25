@@ -1,7 +1,7 @@
 #include "cmt_pch.h"
 #include "OpenGLRenderAPI.h"
 
-#include <glad/glad.h>
+#include "glad/glad.h"
 
 namespace comet {
 
