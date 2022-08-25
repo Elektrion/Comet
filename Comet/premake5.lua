@@ -38,10 +38,27 @@ project "Comet"
 			"GLFW_INCLUDE_NONE"
 		}
 		files {
+			"src/Platform/OpenGL/**.h", 
+			"src/Platform/OpenGL/**.cpp", 
 			"src/Platform/Windows/**.h", 
-			"src/Platform/Windows/**.cpp", 
+			"src/Platform/Windows/**.cpp"
+		}
+
+	filter "system:macosx"
+		defines {
+			"CMT_PLATFORM_MACOS", 
+			"GLFW_INCLUDE_NONE"
+		}
+		files {
+			"src/Platform/MacOS/**.h", 
+			"src/Platform/MacOS/**.cpp", 
 			"src/Platform/OpenGL/**.h", 
 			"src/Platform/OpenGL/**.cpp"
+		}
+		links {
+			"Cocoa.framework", 
+			"IOKit.framework", 
+			"CoreFoundation.framework"
 		}
 
 	filter "configurations:Debug"

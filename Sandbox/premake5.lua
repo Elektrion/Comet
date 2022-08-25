@@ -26,6 +26,14 @@ project "Sandbox"
 		systemversion "latest"
 		defines "CMT_PLATFORM_WINDOWS"
 
+	filter "system:macosx"
+		defines "CMT_PLATFORM_MACOS"
+		links {
+			"Cocoa.framework", 
+			"IOKit.framework", 
+			"CoreFoundation.framework"
+		}
+
 	filter "configurations:Debug"
 		defines {
 			"CMT_DEBUG", 

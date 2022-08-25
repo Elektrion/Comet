@@ -1,5 +1,5 @@
 #include "cmt_pch.h"
-#include "WindowsWindow.h"
+#include "MacOSWindow.h"
 
 #include "Comet/Event/KeyEvent.h"
 #include "Comet/Event/MouseEvent.h"
@@ -7,20 +7,20 @@
 
 namespace comet {
 
-	WindowsWindow::WindowsWindow(const WindowProperties& props) {
+	MacOSWindow::MacOSWindow(const WindowProperties& props) {
 		init(props);
 	}
 
-	WindowsWindow::~WindowsWindow() {
+	MacOSWindow::~MacOSWindow() {
 		shutdown();
 	}
 
-	void WindowsWindow::setVsync(bool vsync) {
+	void MacOSWindow::setVsync(bool vsync) {
 		data.vsync = vsync;
 		glfwSwapInterval(vsync ? 1 : 0);
 	}
 
-	void WindowsWindow::setMinimized(bool minimized) {
+	void MacOSWindow::setMinimized(bool minimized) {
 		data.minimized = minimized;
 		if(minimized)
 			glfwIconifyWindow(window);
@@ -28,7 +28,7 @@ namespace comet {
 			glfwRestoreWindow(window);
 	}
 
-	void WindowsWindow::setMaximized(bool maximized) {
+	void MacOSWindow::setMaximized(bool maximized) {
 		data.maximized = maximized;
 		if(maximized)
 			glfwMaximizeWindow(window);
@@ -36,12 +36,12 @@ namespace comet {
 			glfwRestoreWindow(window);
 	}
 
-	void WindowsWindow::onUpdate(Timestep dt) {
+	void MacOSWindow::onUpdate(Timestep dt) {
 		context->swapBuffers();
 		glfwPollEvents();
 	}
 
-	void WindowsWindow::setEventCallback(EventCallbackFn callback) {
+	void MacOSWindow::setEventCallback(EventCallbackFn callback) {
 		data.event_callback = callback;
 	}
 
@@ -51,7 +51,7 @@ namespace comet {
 		CMT_CORE_ERROR("glfw error: {0}, {1}", error, description);
 	}
 
-	void WindowsWindow::init(const WindowProperties& props) {
+	void MacOSWindow::init(const WindowProperties& props) {
 		if(glfw_window_count == 0) {
 			int success = glfwInit();
 			CMT_CORE_ASSERT(success == GLFW_TRUE, "Failed to initialize glfw!");
@@ -168,7 +168,7 @@ namespace comet {
 		});
 	}
 
-	void WindowsWindow::shutdown() {
+	void MacOSWindow::shutdown() {
 		glfwDestroyWindow(window);
 		window = nullptr;
 		glfw_window_count--;
