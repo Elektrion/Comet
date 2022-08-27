@@ -71,7 +71,7 @@ namespace comet {
 		data.minimized = false;
 		data.maximized = false;
 		
-		context = GraphicsContext::createContext(window);
+		context = GraphicsContext::create(window);
 		context->init();
 
 		setVsync(data.vsync);

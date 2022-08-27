@@ -20,7 +20,7 @@ namespace comet {
 		RenderCommand::init();
 
 		instance = this;
-		window = Window::createWindow();
+		window = Window::create();
 		window->setEventCallback(std::bind(&Application::onEvent, this, std::placeholders::_1));
 	}
 
@@ -38,9 +38,6 @@ namespace comet {
 			auto timepoint = std::chrono::high_resolution_clock::now();
 			Timestep dt = std::chrono::duration_cast<std::chrono::duration<float, std::chrono::milliseconds::period>>(timepoint - last_timepoint).count();
 			last_timepoint = timepoint;
-
-			RenderCommand::setClearColor(0.3f, 0.1f, 0.7f);
-			RenderCommand::clear();
 
 			for(auto layer : layerstack)
 				layer->onUpdate(dt);

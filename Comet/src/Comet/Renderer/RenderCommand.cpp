@@ -7,7 +7,7 @@ namespace comet {
 
 	void RenderCommand::init() {
 		RenderAPI::init();
-		render_api = RenderAPI::createRenderAPI();
+		render_api = RenderAPI::create();
 	}
 
 }

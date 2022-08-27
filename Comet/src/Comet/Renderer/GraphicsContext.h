@@ -11,7 +11,7 @@ namespace comet {
 		virtual void init() = 0;
 		virtual void swapBuffers() = 0;
 	public:
-		static Scope<GraphicsContext> createContext(void* window_handle);
+		static Scope<GraphicsContext> create(void* window_handle);
 	};
 
 }

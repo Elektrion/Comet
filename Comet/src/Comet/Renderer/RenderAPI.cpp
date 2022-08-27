@@ -17,7 +17,7 @@ namespace comet {
 		api = API::OPENGL;
 	}
 
-	Scope<RenderAPI> RenderAPI::createRenderAPI() {
+	Scope<RenderAPI> RenderAPI::create() {
 #if defined(CMT_PLATFORM_WINDOWS)
 		switch(RenderAPI::getAPI()) {
 			case API::NONE:

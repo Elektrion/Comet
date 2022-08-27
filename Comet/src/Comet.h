@@ -14,3 +14,7 @@
 #include "Comet/Event/KeyEvent.h"
 #include "Comet/Event/MouseEvent.h"
 #include "Comet/Event/WindowEvent.h"
+
+#include "Comet/Renderer/Buffer.h"
+#include "Comet/Renderer/Renderer.h"
+#include "Comet/Renderer/VertexArray.h"

@@ -38,7 +38,7 @@ namespace comet {
 		virtual void onUpdate(Timestep dt) = 0;
 		virtual void setEventCallback(EventCallbackFn callback) = 0;
 	public:
-		static Scope<Window> createWindow(const WindowProperties& props = {});
+		static Scope<Window> create(const WindowProperties& props = {});
 	};
 
 }
