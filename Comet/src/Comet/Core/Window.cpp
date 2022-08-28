@@ -13,9 +13,9 @@ namespace comet {
 
 	Scope<Window> Window::create(const WindowProperties& props) {
 #if defined(CMT_PLATFORM_WINDOWS)
-		return makeScope<WindowsWindow>(props);
+		return createScope<WindowsWindow>(props);
 #elif defined(CMT_PLATFORM_MACOS)
-		return makeScope<MacOSWindow>(props);
+		return createScope<MacOSWindow>(props);
 #endif
 		return Scope<Window>(nullptr);
 	}

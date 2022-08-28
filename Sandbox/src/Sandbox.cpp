@@ -56,7 +56,7 @@ private:
 class SandboxApplication : public comet::Application {
 public:
 	SandboxApplication() {
-		pushLayer(comet::makeRef<SandboxLayer>());
+		pushLayer(comet::createRef<SandboxLayer>());
 	}
 };
 

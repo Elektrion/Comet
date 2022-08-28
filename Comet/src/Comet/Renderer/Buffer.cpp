@@ -26,7 +26,7 @@ namespace comet {
 				CMT_CORE_ASSERT(false, "No render api was set!");
 				break;
 			case RenderAPI::API::OPENGL:
-				return makeRef<OpenGLVertexBuffer>();
+				return createRef<OpenGLVertexBuffer>();
 			default:
 				CMT_CORE_ASSERT(false, "Render api was set to an invalid value!");
 				break;
@@ -37,7 +37,7 @@ namespace comet {
 				CMT_CORE_ASSERT(false, "No render api was set!");
 				break;
 			case RenderAPI::API::OPENGL:
-				return makeRef<OpenGLVertexBuffer>();
+				return createRef<OpenGLVertexBuffer>();
 			default:
 				CMT_CORE_ASSERT(false, "Render api was set to an invalid value!");
 				break;
@@ -53,7 +53,7 @@ namespace comet {
 				CMT_CORE_ASSERT(false, "No render api was set!");
 				break;
 			case RenderAPI::API::OPENGL:
-				return makeRef<OpenGLIndexBuffer>();
+				return createRef<OpenGLIndexBuffer>();
 			default:
 				CMT_CORE_ASSERT(false, "Render api was set to an invalid value!");
 				break;
@@ -64,7 +64,7 @@ namespace comet {
 				CMT_CORE_ASSERT(false, "No render api was set!");
 				break;
 			case RenderAPI::API::OPENGL:
-				return makeRef<OpenGLIndexBuffer>();
+				return createRef<OpenGLIndexBuffer>();
 			default:
 				CMT_CORE_ASSERT(false, "Render api was set to an invalid value!");
 				break;

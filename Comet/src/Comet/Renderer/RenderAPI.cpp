@@ -24,7 +24,7 @@ namespace comet {
 				CMT_CORE_ASSERT(false, "No render api was set!");
 				break;
 			case API::OPENGL:
-				return makeScope<OpenGLRenderAPI>();
+				return createScope<OpenGLRenderAPI>();
 			default:
 				CMT_CORE_ASSERT(false, "Render api was set to an invalid value!");
 				break;
@@ -35,7 +35,7 @@ namespace comet {
 				CMT_CORE_ASSERT(false, "No render api was set!");
 				break;
 			case API::OPENGL:
-				return makeScope<OpenGLRenderAPI>();
+				return createScope<OpenGLRenderAPI>();
 			default:
 				CMT_CORE_ASSERT(false, "Render api was set to an invalid value!");
 				break;

@@ -21,7 +21,7 @@ namespace comet {
 				CMT_CORE_ASSERT(false, "No render api was set!");
 				break;
 			case RenderAPI::API::OPENGL:
-				return makeRef<OpenGLVertexArray>();
+				return createRef<OpenGLVertexArray>();
 			default:
 				CMT_CORE_ASSERT(false, "Render api was set to an invalid value!");
 				break;
@@ -32,7 +32,7 @@ namespace comet {
 				CMT_CORE_ASSERT(false, "No render api was set!");
 				break;
 			case RenderAPI::API::OPENGL:
-				return makeRef<OpenGLVertexArray>();
+				return createRef<OpenGLVertexArray>();
 			default:
 				CMT_CORE_ASSERT(false, "Render api was set to an invalid value!");
 				break;
