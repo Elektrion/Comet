@@ -1,7 +1,14 @@
+# VisualStudio Files
 .vs
 *.sln
 *.vcxproj
 *.vcxproj.user
 *.vcxproj.filters
+
+# XCode Files
+*.xcodeproj
+*.xcworkspace
+*.DS_Store
+
 bin
 bin-int

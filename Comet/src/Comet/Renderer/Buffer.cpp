@@ -6,8 +6,7 @@
 #if defined(CMT_PLATFORM_WINDOWS)
 #include "Platform/OpenGL/OpenGLBuffer.h"
 #elif defined(CMT_PLATFORM_MACOS)
-#include "GLFW/glfw3.h"
-#include "Platform/OpenGL/OpenGLContext.h"
+#include "Platform/OpenGL/OpenGLBuffer.h"
 #else
 #error "Platform not supported!"
 #endif

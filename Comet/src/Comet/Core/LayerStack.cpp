@@ -8,7 +8,7 @@ namespace comet {
 	}
 
 	void LayerStack::push(Ref<Layer> layer) {
-		auto iter = std::ranges::find(layers, layer);
+		auto iter = std::find(layers.begin(), layers.end(), layer);
 		if(iter == layers.end()) {
 			layers.insert(layers.begin() + insertion_index, layer);
 			layer->onAttatch();
@@ -19,7 +19,7 @@ namespace comet {
 	}
 
 	void LayerStack::pop(Ref<Layer> layer) {
-		auto iter = std::ranges::find(layers, layer);
+        auto iter = std::find(layers.begin(), layers.end(), layer);
 		if(iter != layers.end()) {
 			if(size_t(iter - layers.begin()) >= insertion_index)
 				CMT_CORE_WARN("The popped layer was an overlay layer, popping it anyway");
@@ -32,7 +32,7 @@ namespace comet {
 	}
 
 	void LayerStack::pushOverlay(Ref<Layer> layer) {
-		auto iter = std::ranges::find(layers, layer);
+        auto iter = std::find(layers.begin(), layers.end(), layer);
 		if(iter == layers.end()) {
 			layers.push_back(layer);
 			layer->onAttatch();
@@ -42,7 +42,7 @@ namespace comet {
 	}
 
 	void LayerStack::popOverlay(Ref<Layer> layer) {
-		auto iter = std::ranges::find(layers, layer);
+        auto iter = std::find(layers.begin(), layers.end(), layer);
 		if(iter != layers.end()) {
 			if(size_t(iter - layers.begin()) < insertion_index) {
 				CMT_CORE_WARN("The popped layer wasn't an overlay layer, popping it anyway");

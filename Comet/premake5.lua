@@ -7,9 +7,6 @@ project "Comet"
 	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
-	pchheader "cmt_pch.h"
-	pchsource "src/cmt_pch.cpp"
-
 	files {
 		"src/**.h", 
 		"src/**.cpp"
@@ -32,7 +29,9 @@ project "Comet"
 
 
 	filter "system:windows"
-		systemversion "latest"
+		systemversion "latest"	
+		pchheader "cmt_pch.h"
+		pchsource "src/cmt_pch.cpp"
 		defines {
 			"CMT_PLATFORM_WINDOWS", 
 			"GLFW_INCLUDE_NONE"
@@ -45,6 +44,7 @@ project "Comet"
 		}
 
 	filter "system:macosx"
+		pchheader "src/cmt_pch.h"
 		defines {
 			"CMT_PLATFORM_MACOS", 
 			"GLFW_INCLUDE_NONE"
