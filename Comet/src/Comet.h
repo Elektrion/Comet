@@ -17,4 +17,5 @@
 
 #include "Comet/Renderer/Buffer.h"
 #include "Comet/Renderer/Renderer.h"
+#include "Comet/Renderer/Shader.h"
 #include "Comet/Renderer/VertexArray.h"

@@ -32,6 +32,27 @@ public:
 		index_buffer->bind();
 		index_buffer->setData(6, indices, comet::BufferUsage::STATIC);
 		quad_vertex_array->setIndexBuffer(index_buffer);
+
+
+		quad_shader = comet::Shader::create(R"(
+			#version 410 core
+			
+			layout(location = 0) in vec3 a_position;
+			
+			void main() {
+				gl_Position = vec4(a_position, 1.0f);
+			}
+		)", R"(
+			#version 410 core
+			
+			out vec4 color;
+			
+			void main() {
+				color = vec4(0.9f, 0.8f, 0.4f, 1.0f);
+			}
+		)");
+
+		quad_shader->bind();
 	}
 
 	virtual void onDetatch() override {
@@ -50,6 +71,7 @@ public:
 	}
 private:
 	comet::Ref<comet::VertexArray> quad_vertex_array;
+	comet::Ref<comet::Shader> quad_shader;
 };
 
 
