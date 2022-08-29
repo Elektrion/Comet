@@ -14,7 +14,8 @@ project "Sandbox"
 
 	includedirs {
 		"src", 
-		"%{wks.location}/Comet/src"
+		"%{wks.location}/Comet/src", 
+		"%{includedir.glm}"
 	}
 
 	links {

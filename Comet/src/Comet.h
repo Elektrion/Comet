@@ -1,6 +1,11 @@
 #pragma once
 
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
+
 #include "Comet/Core/Application.h"
+#include "Comet/Core/Assets.h"
 #include "Comet/Core/Core.h"
 #include "Comet/Core/KeyCodes.h"
 #include "Comet/Core/Layer.h"

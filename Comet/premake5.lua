@@ -19,7 +19,8 @@ project "Comet"
 	includedirs {
 		"src", 
 		"%{includedir.glfw}", 
-		"%{includedir.glad}"
+		"%{includedir.glad}", 
+		"%{includedir.glm}"
 	}
 
 	links {

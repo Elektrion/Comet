@@ -12,6 +12,7 @@ workspace "Comet"
 	includedir = {}
 	includedir["glfw"] = "%{wks.location}/Comet/vendor/glfw/include"
 	includedir["glad"] = "%{wks.location}/Comet/vendor/glad/include"
+	includedir["glm"] = "%{wks.location}/Comet/vendor/glm"
 
 	filter "system:windows"
 		architecture "x86_64"
