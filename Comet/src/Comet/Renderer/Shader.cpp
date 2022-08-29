@@ -1,6 +1,8 @@
 #include "cmt_pch.h"
 #include "Shader.h"
 
+#include "Comet/Core/Assets.h"
+
 #include "Comet/Renderer/RenderAPI.h"
 
 #if defined(CMT_PLATFORM_WINDOWS)
@@ -38,6 +40,10 @@ namespace comet {
 		}
 #endif
 		return Ref<OpenGLShader>(nullptr);
+	}
+
+	Ref<Shader> Shader::createFromFile(const std::string& vertex_filename, const std::string& fragment_filename) {
+		return create(Assets::loadFile("shaders/" + vertex_filename), Assets::loadFile("shaders/" + fragment_filename));
 	}
 
 }

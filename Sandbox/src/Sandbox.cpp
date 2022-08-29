@@ -9,17 +9,18 @@ public:
 
 
 		float vertices[] = {
-			-0.5f, -0.5f, 0.0f, 
-			 0.5f, -0.5f, 0.0f, 
-			 0.5f,  0.5f, 0.0f, 
-			-0.5f,  0.5f, 0.0f
+			-0.5f, -0.5f, 0.0f, 0.9f, 0.8f, 0.4f, 1.0f, 
+			 0.5f, -0.5f, 0.0f, 0.3f, 0.1f, 0.7f, 1.0f, 
+			 0.5f,  0.5f, 0.0f, 0.9f, 0.8f, 0.4f, 1.0f, 
+			-0.5f,  0.5f, 0.0f, 0.9f, 0.8f, 0.4f, 1.0f
 		};
 
 		auto vertex_buffer = comet::VertexBuffer::create();
 		vertex_buffer->bind();
 		vertex_buffer->setData(sizeof(vertices), vertices, comet::BufferUsage::STATIC);
 		vertex_buffer->setLayout({
-			{ comet::BufferLayout::Type::FLOAT3, "a_position" }
+			{ comet::BufferLayout::Type::FLOAT3, "a_position" }, 
+			{ comet::BufferLayout::Type::FLOAT4, "a_color" }
 		});
 		quad_vertex_array->addVertexBuffer(vertex_buffer);
 
@@ -34,24 +35,7 @@ public:
 		quad_vertex_array->setIndexBuffer(index_buffer);
 
 
-		quad_shader = comet::Shader::create(R"(
-			#version 410 core
-			
-			layout(location = 0) in vec3 a_position;
-			
-			void main() {
-				gl_Position = vec4(a_position, 1.0f);
-			}
-		)", R"(
-			#version 410 core
-			
-			out vec4 color;
-			
-			void main() {
-				color = vec4(0.9f, 0.8f, 0.4f, 1.0f);
-			}
-		)");
-
+		quad_shader = comet::Shader::createFromFile("basic_colored.vert.glsl", "basic_colored.frag.glsl");
 		quad_shader->bind();
 	}
 

@@ -14,6 +14,7 @@ namespace comet {
 		virtual void unBind() = 0;
 	public:
 		static Ref<Shader> create(const std::string& vertex_source, const std::string& fragment_source);
+		static Ref<Shader> createFromFile(const std::string& vertex_filename, const std::string& fragment_filename);
 	};
 
 }
