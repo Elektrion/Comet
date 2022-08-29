@@ -65,7 +65,8 @@ project "Comet"
 	filter "configurations:Debug"
 		defines {
 			"CMT_DEBUG", 
-			"CMT_ENABLE_ASSERTS"
+			"CMT_ENABLE_ASSERTS", 
+			"CMT_ASSETS_DIR=%{dev_assets_dir}"
 		}
 		runtime "Debug"
 		symbols "On"
@@ -73,12 +74,16 @@ project "Comet"
 	filter "configurations:Release"
 		defines {
 			"CMT_RELEASE", 
-			"CMT_ENABLE_ASSERTS"
+			"CMT_ENABLE_ASSERTS", 
+			"CMT_ASSETS_DIR=%{dev_assets_dir}"
 		}
 		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
-		defines "CMT_DIST"
+		defines {
+			"CMT_DIST", 
+			"CMT_ASSETS_DIR=%{dist_assets_dir}"
+		}
 		runtime "Release"
 		optimize "On"

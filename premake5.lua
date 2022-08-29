@@ -16,6 +16,9 @@ workspace "Comet"
 
 	filter "system:windows"
 		architecture "x86_64"
+
+	dev_assets_dir = "\"%{wks.location}/Comet/assets\""
+	dist_assets_dir = "\"assets\""
 	
 	group "Dependencies"
 		include "Comet/vendor/glfw"

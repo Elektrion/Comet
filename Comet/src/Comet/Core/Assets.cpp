@@ -8,7 +8,7 @@ namespace comet {
     std::string Assets::loadFile(const std::string& filename) {
         std::ifstream in(getAssetPath(filename));
         if(!in) {
-            CMT_CORE_ERROR("Failed to open assets file \"{0}\".", filename);
+            CMT_CORE_ERROR("Failed to open assets file \"{0}\".", getAssetPath(filename));
             return {};
         }
 
@@ -21,11 +21,7 @@ namespace comet {
     }
 
     std::string Assets::getAssetPath(const std::string& filename) {
-#if defined(CMT_DEBUG) | defined(CMT_RELEASE)
-        return "../Comet/assets/" + filename;
-#elif defined(CMT_DIST)
-        return "assets/" + filename;
-#endif
+        return CMT_ASSETS_DIR + std::string("/") + filename;
     }
 
 }
