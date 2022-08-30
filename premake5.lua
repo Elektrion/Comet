@@ -14,11 +14,11 @@ workspace "Comet"
 	includedir["glad"] = "%{wks.location}/Comet/vendor/glad/include"
 	includedir["glm"] = "%{wks.location}/Comet/vendor/glm"
 
+	dev_assets_dir = "\"%{!wks.location}/Comet/assets/comet\""
+	dist_assets_dir = "\"assets/comet\""
+
 	filter "system:windows"
 		architecture "x86_64"
-
-	dev_assets_dir = "\"%{wks.location}/Comet/assets\""
-	dist_assets_dir = "\"assets\""
 	
 	group "Dependencies"
 		include "Comet/vendor/glfw"
