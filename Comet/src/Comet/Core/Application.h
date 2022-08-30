@@ -13,6 +13,8 @@ namespace comet {
 		Application();
 		virtual ~Application();
 
+		inline const Scope<Window>& getWindow() const { return window; }
+
 		inline void pushLayer(Ref<Layer> layer) { layerstack.push(layer); }
 		inline void pushOverlay(Ref<Layer> layer) { layerstack.pushOverlay(layer); }
 		inline void popLayer(Ref<Layer> layer) { layerstack.pop(layer); }

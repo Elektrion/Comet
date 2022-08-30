@@ -25,6 +25,7 @@ namespace comet {
 
 		virtual uint32_t getWidth() const = 0;
 		virtual uint32_t getHeight() const = 0;
+		virtual float getAspectRatio() const = 0;
 		virtual bool isVsyncEnabled() const = 0;
 		virtual bool isMinimized() const = 0;
 		virtual bool isMaximized() const = 0;

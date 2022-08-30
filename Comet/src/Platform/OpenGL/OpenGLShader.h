@@ -18,6 +18,8 @@ namespace comet {
 		virtual void setUniformFloat4(const std::string& name, glm::vec4 value) override;
 
 		virtual void setUniformInt(const std::string& name, int value) override;
+
+		virtual void setUniformMat4(const std::string& name, glm::mat4 value) override;
 	private:
 		uint32_t id;
 	};

@@ -87,7 +87,7 @@ namespace comet {
 		glProgramUniform1fv(id, glGetUniformLocation(id, name.c_str()), 2, glm::value_ptr(value));
 #else
 		bind();
-		glUniform1fv(glGetUniformLocation(id, name.c_str()), 2, glm::value_ptr(value));
+		glUniform2fv(glGetUniformLocation(id, name.c_str()), 1, glm::value_ptr(value));
 #endif
 	}
 
@@ -96,7 +96,7 @@ namespace comet {
 		glProgramUniform1fv(id, glGetUniformLocation(id, name.c_str()), 3, glm::value_ptr(value));
 #else
 		bind();
-		glUniform1fv(glGetUniformLocation(id, name.c_str()), 3, glm::value_ptr(value));
+		glUniform3fv(glGetUniformLocation(id, name.c_str()), 1, glm::value_ptr(value));
 #endif
 	}
 
@@ -105,7 +105,7 @@ namespace comet {
 		glProgramUniform1fv(id, glGetUniformLocation(id, name.c_str()), 4, glm::value_ptr(value));
 #else
 		bind();
-		glUniform1fv(glGetUniformLocation(id, name.c_str()), 4, glm::value_ptr(value));
+		glUniform4fv(glGetUniformLocation(id, name.c_str()), 1, glm::value_ptr(value));
 #endif
 	}
 
@@ -115,6 +115,15 @@ namespace comet {
 #else
 		bind();
 		glUniform1i(glGetUniformLocation(id, name.c_str()), value);
+#endif
+	}
+
+	void OpenGLShader::setUniformMat4(const std::string& name, glm::mat4 value) {
+#if defined(CMT_USE_OPENGL_4_5)
+		glProgramUniformMatrix4fv(id, glGetUniformLocation(id, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
+#else
+		bind();
+		glUniformMatrix4fv(glGetUniformLocation(id, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
 #endif
 	}
 

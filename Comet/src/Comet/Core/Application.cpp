@@ -4,7 +4,7 @@
 #include "Comet/Core/Core.h"
 #include "Comet/Core/Time.h"
 
-#include "Comet/Renderer/RenderCommand.h"
+#include "Comet/Renderer/Renderer.h"
 
 namespace comet {
 
@@ -17,11 +17,12 @@ namespace comet {
 		}
 
 		RenderAPI::init();
-		RenderCommand::init();
 
 		instance = this;
 		window = Window::create();
 		window->setEventCallback(std::bind(&Application::onEvent, this, std::placeholders::_1));
+
+		Renderer::init();
 	}
 
 	Application::~Application() {

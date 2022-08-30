@@ -17,6 +17,7 @@ namespace comet {
 
 		virtual inline uint32_t getWidth() const override { return data.width; }
 		virtual inline uint32_t getHeight() const override { return data.height; }
+		virtual inline float getAspectRatio() const override { return float(data.width) / float(data.height); }
 		virtual inline bool isVsyncEnabled() const override { return data.vsync; };
 		virtual inline bool isMinimized() const override { return data.minimized; }
 		virtual inline bool isMaximized() const override { return data.maximized; }
