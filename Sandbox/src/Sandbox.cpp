@@ -9,10 +9,10 @@ public:
 
 
 		float vertices[] = {
-			-0.5f, -0.5f, 0.0f, 0.9f, 0.8f, 0.4f, 1.0f, 
-			 0.5f, -0.5f, 0.0f, 0.3f, 0.1f, 0.7f, 1.0f, 
-			 0.5f,  0.5f, 0.0f, 0.9f, 0.8f, 0.4f, 1.0f, 
-			-0.5f,  0.5f, 0.0f, 0.9f, 0.8f, 0.4f, 1.0f
+			-0.5f, -0.5f, 0.0f, 0.9f, 0.8f, 0.4f, 1.0f, 0.0f, 0.0f, 
+			 0.5f, -0.5f, 0.0f, 0.3f, 0.1f, 0.7f, 1.0f, 1.0f, 0.0f, 
+			 0.5f,  0.5f, 0.0f, 0.9f, 0.8f, 0.4f, 1.0f, 1.0f, 1.0f, 
+			-0.5f,  0.5f, 0.0f, 0.9f, 0.8f, 0.4f, 1.0f, 0.0f, 1.0f
 		};
 
 		auto vertex_buffer = comet::VertexBuffer::create();
@@ -20,7 +20,8 @@ public:
 		vertex_buffer->setData(sizeof(vertices), vertices, comet::BufferUsage::STATIC);
 		vertex_buffer->setLayout({
 			{ comet::BufferLayout::Type::FLOAT3, "a_position" }, 
-			{ comet::BufferLayout::Type::FLOAT4, "a_color" }
+			{ comet::BufferLayout::Type::FLOAT4, "a_color" },
+			{ comet::BufferLayout::Type::FLOAT2, "a_texture_coords" }
 		});
 		quad_vertex_array->addVertexBuffer(vertex_buffer);
 
@@ -35,8 +36,13 @@ public:
 		quad_vertex_array->setIndexBuffer(index_buffer);
 
 
-		quad_shader = comet::Shader::createFromFile("basic_colored.vert.glsl", "basic_colored.frag.glsl");
+		quad_shader = comet::Shader::createFromFile("basic_textured.vert.glsl", "basic_textured.frag.glsl");
 		quad_shader->bind();
+
+
+		water_texture = comet::Texture2D::create("water.png", true);
+		water_texture->bind(0);
+		quad_shader->setUniformInt("sampler", 0);
 	}
 
 	virtual void onDetatch() override {
@@ -47,7 +53,7 @@ public:
 		comet::RenderCommand::setClearColor(0.3f, 0.1f, 0.7f);
 		comet::RenderCommand::clear();
 
-		comet::Renderer::drawIndexed(quad_vertex_array);
+		comet::Renderer::drawIndexed(quad_vertex_array, quad_shader);
 	}
 
 	virtual void onEvent(comet::Event& e) override {
@@ -56,6 +62,7 @@ public:
 private:
 	comet::Ref<comet::VertexArray> quad_vertex_array;
 	comet::Ref<comet::Shader> quad_shader;
+	comet::Ref<comet::Texture2D> water_texture;
 };
 
 

@@ -11,6 +11,13 @@ namespace comet {
 
 		virtual void bind() override;
 		virtual void unBind() override;
+
+		virtual void setUniformFloat(const std::string& name, float value) override;
+		virtual void setUniformFloat2(const std::string& name, glm::vec2 value) override;
+		virtual void setUniformFloat3(const std::string& name, glm::vec3 value) override;
+		virtual void setUniformFloat4(const std::string& name, glm::vec4 value) override;
+
+		virtual void setUniformInt(const std::string& name, int value) override;
 	private:
 		uint32_t id;
 	};
