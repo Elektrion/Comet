@@ -28,6 +28,16 @@ namespace comet {
         recalculateViewProjection();
     }
 
+    void OrthographicCamera::move(glm::vec2 delta_pos) {
+        this->position += glm::vec3(delta_pos.x, delta_pos.y, 0.0f);
+        recalculateViewProjection();
+    }
+
+    void OrthographicCamera::move(glm::vec3 delta_pos) {
+        this->position += delta_pos;
+        recalculateViewProjection();
+    }
+
     void OrthographicCamera::increaseZoom(float increment) {
         this->zoom_level += increment;
         recalculateViewProjection();

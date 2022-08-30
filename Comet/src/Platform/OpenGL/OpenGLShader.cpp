@@ -84,7 +84,7 @@ namespace comet {
 
 	void OpenGLShader::setUniformFloat2(const std::string& name, glm::vec2 value) {
 #if defined(CMT_USE_OPENGL_4_5)
-		glProgramUniform1fv(id, glGetUniformLocation(id, name.c_str()), 2, glm::value_ptr(value));
+		glProgramUniform2fv(id, glGetUniformLocation(id, name.c_str()), 1, glm::value_ptr(value));
 #else
 		bind();
 		glUniform2fv(glGetUniformLocation(id, name.c_str()), 1, glm::value_ptr(value));
@@ -93,7 +93,7 @@ namespace comet {
 
 	void OpenGLShader::setUniformFloat3(const std::string& name, glm::vec3 value) {
 #if defined(CMT_USE_OPENGL_4_5)
-		glProgramUniform1fv(id, glGetUniformLocation(id, name.c_str()), 3, glm::value_ptr(value));
+		glProgramUniform3fv(id, glGetUniformLocation(id, name.c_str()), 1, glm::value_ptr(value));
 #else
 		bind();
 		glUniform3fv(glGetUniformLocation(id, name.c_str()), 1, glm::value_ptr(value));
@@ -102,7 +102,7 @@ namespace comet {
 
 	void OpenGLShader::setUniformFloat4(const std::string& name, glm::vec4 value) {
 #if defined(CMT_USE_OPENGL_4_5)
-		glProgramUniform1fv(id, glGetUniformLocation(id, name.c_str()), 4, glm::value_ptr(value));
+		glProgramUniform4fv(id, glGetUniformLocation(id, name.c_str()), 1, glm::value_ptr(value));
 #else
 		bind();
 		glUniform4fv(glGetUniformLocation(id, name.c_str()), 1, glm::value_ptr(value));

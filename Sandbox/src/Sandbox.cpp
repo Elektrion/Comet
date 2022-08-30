@@ -4,7 +4,9 @@
 class SandboxLayer : public comet::Layer {
 public:
 	virtual void onAttatch() override {
-		camera = comet::OrthographicCamera::create({ 0.0f, 0.0f, 0.0f }, 2.0f, comet::Application::get()->getWindow()->getAspectRatio());
+		camera_controller = comet::createRef<comet::OrthographicCameraController>(
+			comet::OrthographicCamera::create({ 0.0f, 0.0f, 0.0f }, 10.0f, comet::Application::get()->getWindow()->getAspectRatio()), 
+			1.0f, 1.0f);
 	}
 
 	virtual void onDetatch() override {
@@ -15,16 +17,18 @@ public:
 		comet::RenderCommand::setClearColor(0.3f, 0.1f, 0.7f);
 		comet::RenderCommand::clear();
 
-		comet::Renderer2D::beginScene(camera);
+		camera_controller->onUpdate(dt);
+
+		comet::Renderer2D::beginScene(camera_controller->getCamera());
 		comet::Renderer2D::drawQuad({ 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f });
 		comet::Renderer2D::endScene();
 	}
 
 	virtual void onEvent(comet::Event& e) override {
-		
+		camera_controller->onEvent(e);
 	}
 private:
-	comet::Ref<comet::OrthographicCamera> camera;
+	comet::Ref<comet::OrthographicCameraController> camera_controller;
 };
 
 

@@ -15,6 +15,8 @@ namespace comet {
 		void setZoomLevel(float zoom_level);
 		void setRotation(glm::vec3 rotation);
 
+		void move(glm::vec2 delta_pos);
+		void move(glm::vec3 delta_pos);
 		void increaseZoom(float increment);
 		void decreaseZoom(float decrement);
 
