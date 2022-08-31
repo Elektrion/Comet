@@ -7,6 +7,7 @@ public:
 		camera_controller = comet::createRef<comet::OrthographicCameraController>(
 			comet::OrthographicCamera::create({ 0.0f, 0.0f, 0.0f }, 10.0f, comet::Application::get()->getWindow()->getAspectRatio()), 
 			5.0f, 1.0f);
+		water_texture = comet::Texture2D::create("water.png", true);
 	}
 
 	virtual void onDetatch() override {
@@ -24,7 +25,7 @@ public:
 		comet::Renderer2D::drawQuad({  5.0f, -5.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f });
 		comet::Renderer2D::drawQuad({  5.0f,  5.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f, 1.0f, 1.0f });
 		comet::Renderer2D::drawQuad({ -5.0f,  5.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 0.0f, 1.0f, 1.0f });
-		comet::Renderer2D::drawQuad({ 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f });
+		comet::Renderer2D::drawQuad({ 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, water_texture);
 		comet::Renderer2D::endScene();
 	}
 
@@ -33,6 +34,7 @@ public:
 	}
 private:
 	comet::Ref<comet::OrthographicCameraController> camera_controller;
+	comet::Ref<comet::Texture2D> water_texture;
 };
 
 
