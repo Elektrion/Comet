@@ -5,6 +5,8 @@
 
 #include "Comet/Event/Event.h"
 
+#include "Comet/Renderer/GraphicsContext.h"
+
 namespace comet {
 
 	class Window {
@@ -35,6 +37,7 @@ namespace comet {
 		virtual void setMaximized(bool maximized) = 0;
 
 		virtual void* getNativeWindow() const = 0;
+		virtual GraphicsContext& getContext() = 0;
 
 		virtual void onUpdate(Timestep dt) = 0;
 		virtual void setEventCallback(EventCallbackFn callback) = 0;

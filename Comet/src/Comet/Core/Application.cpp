@@ -52,6 +52,7 @@ namespace comet {
 	void Application::onEvent(Event& e) {
 		EventDispatcher dispatcher(e);
 		dispatcher.dispatch<WindowClosedEvent>(std::bind(&Application::onWindowClosed, this, std::placeholders::_1));
+		dispatcher.dispatch<WindowResizedEvent>(std::bind(&Application::onWindowResized, this, std::placeholders::_1));
 
 		for(auto layer = layerstack.rbegin(); layer != layerstack.rend(); layer++) {
 			if(!e.isHandled())
@@ -62,6 +63,11 @@ namespace comet {
 	bool Application::onWindowClosed(WindowClosedEvent& e) {
 		running = false;
 		return true;
+	}
+
+	bool Application::onWindowResized(WindowResizedEvent& e) {
+		window->getContext().setViewPort(0, 0, e.getWidth(), e.getHeight());
+		return false;
 	}
 
 }

@@ -27,6 +27,7 @@ namespace comet {
 		virtual void setMaximized(bool maximized) override;
 
 		virtual inline void* getNativeWindow() const override { return window; }
+		virtual inline GraphicsContext& getContext() override { return *context; }
 
 		virtual void onUpdate(Timestep dt) override;
 		virtual void setEventCallback(EventCallbackFn callback) override;

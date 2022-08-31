@@ -26,6 +26,7 @@ namespace comet {
 	private:
 		void onEvent(Event& e);
 		bool onWindowClosed(WindowClosedEvent& e);
+		bool onWindowResized(WindowResizedEvent& e);
 	private:
 		bool running;
 		Scope<Window> window;
