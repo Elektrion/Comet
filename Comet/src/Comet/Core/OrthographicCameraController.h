@@ -12,8 +12,8 @@ namespace comet {
 
 	class OrthographicCameraController {
 	public:
-		inline OrthographicCameraController(const Ref<OrthographicCamera>& camera, float camera_speed, float zoom_interval) 
-			: camera(camera), camera_speed(camera_speed), zoom_interval(zoom_interval) {}
+		inline OrthographicCameraController(const Ref<OrthographicCamera>& camera, float base_camera_speed, float zoom_interval) 
+			: camera(camera), base_camera_speed(base_camera_speed), zoom_interval(zoom_interval) {}
 
 		void onUpdate(Timestep dt);
 		void onEvent(Event& e);
@@ -24,7 +24,7 @@ namespace comet {
 		bool onMouseScrolled(MouseScrolledEvent& e);
 	private:
 		Ref<OrthographicCamera> camera;
-		float camera_speed;
+		float base_camera_speed;
 		float zoom_interval;
 	};
 

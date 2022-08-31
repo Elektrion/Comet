@@ -37,7 +37,7 @@ namespace comet {
 
 		while(running) {
 			auto timepoint = std::chrono::high_resolution_clock::now();
-			Timestep dt = std::chrono::duration_cast<std::chrono::duration<float, std::chrono::milliseconds::period>>(timepoint - last_timepoint).count();
+			Timestep dt = std::chrono::duration_cast<std::chrono::duration<float, std::chrono::seconds::period>>(timepoint - last_timepoint).count();
 			last_timepoint = timepoint;
 
 			for(auto layer : layerstack)
