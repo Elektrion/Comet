@@ -27,12 +27,24 @@ namespace comet {
 			glm::vec3 position;
 			glm::vec4 color;
 			glm::vec2 texture_coords;
+			float texture_index;
 		};
+
+		static void putQuad(glm::vec3 position, glm::vec2 size, glm::vec4 color,
+			std::array<glm::vec2, 4> texture_coords = { glm::vec2(0.0f, 0.0f), glm::vec2(1.0f, 0.0f), glm::vec2(1.0f, 1.0f), glm::vec2(0.0f, 1.0f) }, float texture_index = 0.0f);
+		static void flushQuads();
+	private:
+		static uint32_t max_vertices;
+		static uint32_t max_quads;
+		static uint32_t max_textures;
+
 		static Ref<VertexArray> quad_vertex_array;
 		static Ref<VertexBuffer> quad_vertex_buffer;
+		static Vertex* quad_vertices;
+		static uint32_t quad_index;
 		static Ref<Shader> quad_shader;
 		static Ref<Texture2D> white_texture;
-		static std::array<Vertex, 4> quad_vertices;
+		static std::vector<Ref<Texture2D>> textures;
 	};
 
 }

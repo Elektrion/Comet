@@ -28,6 +28,12 @@ namespace comet {
 			shader->bind();
 			RenderCommand::drawIndexed(vertex_array);
 		}
+
+		static inline void drawIndexed(Ref<VertexArray> vertex_array, Ref<Shader> shader, uint32_t count) {
+			vertex_array->bind();
+			shader->bind();
+			RenderCommand::drawIndexed(vertex_array, count);
+		}
 	};
 
 }

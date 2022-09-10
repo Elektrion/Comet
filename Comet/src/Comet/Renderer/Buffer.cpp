@@ -16,7 +16,7 @@ namespace comet {
 	BufferLayout::Type BufferLayout::Type::FLOAT{ "FLOAT", 1, 4 };
 	BufferLayout::Type BufferLayout::Type::FLOAT2{ "FLOAT2", 2, 8 };
 	BufferLayout::Type BufferLayout::Type::FLOAT3{ "FLOAT3", 3, 12 };
-	BufferLayout::Type BufferLayout::Type::FLOAT4{ "FLOA4T", 4, 16 };
+	BufferLayout::Type BufferLayout::Type::FLOAT4{ "FLOAT4", 4, 16 };
 
 	Ref<VertexBuffer> VertexBuffer::create() {
 #if defined(CMT_PLATFORM_WINDOWS)

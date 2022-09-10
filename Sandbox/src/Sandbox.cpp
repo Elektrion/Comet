@@ -1,6 +1,9 @@
 #include "Comet.h"
 #include "CometEntrypoint.h"
 
+
+constexpr int32_t background_size_half = 50;
+
 class SandboxLayer : public comet::Layer {
 public:
 	virtual void onAttatch() override {
@@ -25,9 +28,10 @@ public:
 		camera_controller->onUpdate(dt);
 
 		comet::Renderer2D::beginScene(camera_controller->getCamera());
-		for(int32_t y = -10; y < 10; y++)
-			for(int32_t x = -10; x < 10; x++)
-				comet::Renderer2D::drawQuad({ x, y }, { 1.0f, 1.0f }, background[(y + 10) * 20 + (x + 10)] ? grass_01_texture : grass_02_texture);
+		for(int32_t y = -background_size_half; y < background_size_half; y++)
+			for(int32_t x = -background_size_half; x < background_size_half; x++)
+				comet::Renderer2D::drawQuad({ x, y }, { 1.0f, 1.0f }, 
+					background[(y + background_size_half) * background_size_half * 2 + (x + background_size_half)] ? grass_01_texture : grass_02_texture);
 
 		comet::Renderer2D::drawQuad({ -5.0f, -5.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 0.0f, 0.0f, 1.0f });
 		comet::Renderer2D::drawQuad({  5.0f, -5.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f });
@@ -45,7 +49,7 @@ private:
 	comet::Ref<comet::Texture2D> water_texture;
 	comet::Ref<comet::Texture2D> grass_01_texture;
 	comet::Ref<comet::Texture2D> grass_02_texture;
-	std::array<bool, 20 * 20> background;
+	std::array<bool, background_size_half * 2 * background_size_half * 2> background;
 };
 
 

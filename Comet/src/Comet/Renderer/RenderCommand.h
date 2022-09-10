@@ -21,6 +21,10 @@ namespace comet {
 		static inline void drawIndexed(Ref<VertexArray> vertex_array) {
 			render_api->drawIndexed(vertex_array);
 		}
+
+		static inline void drawIndexed(Ref<VertexArray> vertex_array, uint32_t count) {
+			render_api->drawIndexed(vertex_array, count);
+		}
 	private:
 		static Scope<RenderAPI> render_api;
 	};

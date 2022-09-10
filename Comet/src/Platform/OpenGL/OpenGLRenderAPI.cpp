@@ -17,4 +17,8 @@ namespace comet {
 		glDrawElements(GL_TRIANGLES, vertex_array->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, 0);
 	}
 
+	void OpenGLRenderAPI::drawIndexed(Ref<VertexArray> vertex_array, uint32_t count) {
+		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, 0);
+	}
+
 }

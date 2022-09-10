@@ -118,6 +118,15 @@ namespace comet {
 #endif
 	}
 
+	void OpenGLShader::setuniformIntArray(const std::string& name, uint32_t count, int* value) {
+#if defined(CMT_USE_OPENGL_4_5)
+		glProgramUniform1iv(id, glGetUniformLocation(id, name.c_str()), count, value);
+#else
+		bind();
+		glUniform1iv(glGetUniformLocation(id, name.c_str()), count, value);
+#endif
+	}
+
 	void OpenGLShader::setUniformMat4(const std::string& name, glm::mat4 value) {
 #if defined(CMT_USE_OPENGL_4_5)
 		glProgramUniformMatrix4fv(id, glGetUniformLocation(id, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));

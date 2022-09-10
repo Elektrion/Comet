@@ -21,6 +21,7 @@ namespace comet {
 		virtual void setUniformFloat4(const std::string& name, glm::vec4 value) = 0;
 
 		virtual void setUniformInt(const std::string& name, int value) = 0;
+		virtual void setuniformIntArray(const std::string& name, uint32_t count, int* value) = 0;
 
 		virtual void setUniformMat4(const std::string& name, glm::mat4 value) = 0;
 	public:
