@@ -6,6 +6,8 @@
 namespace comet {
 
 	void OrthographicCameraController::onUpdate(Timestep dt) {
+		CMT_PROFILE_FUNCTION();
+
 		if(Input::isKeyPressed(key::A))
 			camera->move(glm::vec2(-1.0f, 0.0f) * base_camera_speed * glm::pow(2.0f, camera->getZoomLevel()) * float(dt));
 		else if(Input::isKeyPressed(key::D))
@@ -18,6 +20,8 @@ namespace comet {
 	}
 
 	void OrthographicCameraController::onEvent(Event& e) {
+		CMT_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(e);
 		dispatcher.dispatch<WindowResizedEvent>(std::bind(&OrthographicCameraController::onWindowResized, this, std::placeholders::_1));
 		dispatcher.dispatch<MouseScrolledEvent>(std::bind(&OrthographicCameraController::onMouseScrolled, this, std::placeholders::_1));

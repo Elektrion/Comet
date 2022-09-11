@@ -68,6 +68,7 @@ project "Comet"
 		defines {
 			"CMT_DEBUG", 
 			"CMT_ENABLE_ASSERTS", 
+			"CMT_ENABLE_PROFILING", 
 			"CMT_ASSETS_DIR=%{dev_assets_dir}"
 		}
 		runtime "Debug"
@@ -77,6 +78,7 @@ project "Comet"
 		defines {
 			"CMT_RELEASE", 
 			"CMT_ENABLE_ASSERTS", 
+			"CMT_ENABLE_PROFILING", 
 			"CMT_ASSETS_DIR=%{dev_assets_dir}"
 		}
 		runtime "Release"

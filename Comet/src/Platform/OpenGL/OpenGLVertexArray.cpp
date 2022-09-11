@@ -6,6 +6,8 @@
 namespace comet {
 
 	OpenGLVertexArray::OpenGLVertexArray() : id(0), vertex_buffers{}, index_buffer(nullptr) {
+		CMT_PROFILE_FUNCTION();
+
 #if defined(CMT_USE_OPENGL_4_5)
 		glCreateVertexArrays(1, &id);
 #else
@@ -14,14 +16,20 @@ namespace comet {
 	}
 
 	OpenGLVertexArray::~OpenGLVertexArray() {
+		CMT_PROFILE_FUNCTION();
+
 		glDeleteVertexArrays(1, &id);
 	}
 
 	void OpenGLVertexArray::bind() const {
+		CMT_PROFILE_FUNCTION();
+
 		glBindVertexArray(id);
 	}
 
 	void OpenGLVertexArray::unBind() const {
+		CMT_PROFILE_FUNCTION();
+
 		glBindVertexArray(0);
 	}
 

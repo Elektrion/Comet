@@ -10,5 +10,9 @@
 *.xcworkspace
 *.DS_Store
 
+#Engine Files
 bin
 bin-int
+**/profile_startup.json
+**/profile_gameloop.json
+**/profile_shutdown.json

@@ -46,6 +46,17 @@
 #endif
 
 
+#if defined(CMT_ENABLE_PROFILING)
+	#include "Comet/Core/Instrumentation.h"
+	
+	#define CMT_PROFILE_FUNCTION() comet::InstrumentationTimer timer__LINE__(__FUNCSIG__)
+	#define CMT_PROFILE_SCOPE(name) comet::InstrumentationTimer timer__LINE__(name)
+#else
+	#define CMT_PROFILE_FUNCTION()
+	#define CMT_PROFILE_SCOPE(name)
+#endif
+
+
 namespace comet {
 
 	template<typename T> using Ref = std::shared_ptr<T>;

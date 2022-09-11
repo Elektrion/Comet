@@ -8,6 +8,8 @@
 namespace comet {
 
 	OpenGLTexture2D::OpenGLTexture2D(const std::string& filename, bool pixelate) : id(0), width(0), height(0) {
+		CMT_PROFILE_FUNCTION();
+
 		int width = 0;
 		int height = 0;
 		int channels = 0;
@@ -36,6 +38,8 @@ namespace comet {
 	}
 
 	OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height, uint32_t channels, const unsigned char* const pixels, bool pixelate) : id(0), width(width), height(width) {
+		CMT_PROFILE_FUNCTION();
+
 		if(channels < 3) {
 			CMT_CORE_ERROR("Too few channels specified for texture creation: {0}. Has to be at least 3.", channels);
 			channels = 3;
@@ -48,6 +52,8 @@ namespace comet {
 	}
 
 	OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height, glm::vec4 color, bool pixelate) : id(0), width(width), height(height) {
+		CMT_PROFILE_FUNCTION();
+
 		unsigned char pixels[4] = {
 			static_cast<unsigned char>(glm::clamp(color.r, 0.0f, 1.0f) * 255), 
 			static_cast<unsigned char>(glm::clamp(color.g, 0.0f, 1.0f) * 255),
@@ -58,10 +64,14 @@ namespace comet {
 	}
 
 	OpenGLTexture2D::~OpenGLTexture2D() {
+		CMT_PROFILE_FUNCTION();
+
 		glDeleteTextures(1, &id);
 	}
 
 	void OpenGLTexture2D::bind(uint32_t slot) {
+		CMT_PROFILE_FUNCTION();
+
 #if defined(CMT_USE_OPENGL_4_5)
 		glBindTextureUnit(slot, id);
 #else
@@ -71,6 +81,8 @@ namespace comet {
 	}
 
 	void OpenGLTexture2D::unBind(uint32_t slot) {
+		CMT_PROFILE_FUNCTION();
+
 #if defined(CMT_USE_OPENGL_4_5)
 		glBindTextureUnit(slot, 0);
 #else
@@ -80,6 +92,8 @@ namespace comet {
 	}
 
 	void OpenGLTexture2D::initOpenGLTexture(uint32_t channels, const unsigned char* const pixels, bool pixelate) {
+		CMT_PROFILE_FUNCTION();
+
 #if defined(CMT_USE_OPENGL_4_5)
 		glCreateTextures(GL_TEXTURE_2D, 1, &id);
 		glTextureParameteri(id, GL_TEXTURE_MIN_FILTER, pixelate ? GL_NEAREST : GL_LINEAR);

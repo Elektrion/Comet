@@ -8,6 +8,8 @@ namespace comet {
 	OpenGLContext::OpenGLContext(GLFWwindow* window_handle) : window_handle(window_handle) {}
 
 	void OpenGLContext::init() {
+		CMT_PROFILE_FUNCTION();
+
 		glfwMakeContextCurrent(window_handle);
 
 		int status = gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
@@ -20,10 +22,14 @@ namespace comet {
 	}
 
 	void OpenGLContext::swapBuffers() {
+		CMT_PROFILE_FUNCTION();
+
 		glfwSwapBuffers(window_handle);
 	}
 
 	void OpenGLContext::setViewPort(int32_t x, int32_t y, uint32_t width, uint32_t height) {
+		CMT_PROFILE_FUNCTION();
+
 		glViewport(x, y, width, height);
 	}
 

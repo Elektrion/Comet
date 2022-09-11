@@ -19,6 +19,8 @@ namespace comet {
 	std::vector<Ref<Texture2D>> Renderer2D::textures = {};
 
 	void Renderer2D::init() {
+		CMT_PROFILE_FUNCTION();
+
 		max_vertices = 20000;
 		max_quads = max_vertices / 4;
 		max_textures = 15;
@@ -62,6 +64,8 @@ namespace comet {
 	}
 
 	void Renderer2D::shutdown() {
+		CMT_PROFILE_FUNCTION();
+
 		max_vertices = 0;
 		max_quads = 0;
 		max_textures = 0;
@@ -76,10 +80,14 @@ namespace comet {
 	}
 
 	void Renderer2D::beginScene(const Ref<Camera>& camera) {
+		CMT_PROFILE_FUNCTION();
+
 		quad_shader->setUniformMat4("u_view_projection", camera->getViewProjection());
 	}
 
 	void Renderer2D::endScene() {
+		CMT_PROFILE_FUNCTION();
+
 		flushQuads();
 	}
 
@@ -127,6 +135,8 @@ namespace comet {
 	}
 
 	void Renderer2D::flushQuads() {
+		CMT_PROFILE_FUNCTION();
+
 		quad_vertex_buffer->setData(quad_index * 4 * sizeof(Vertex), quad_vertices, BufferUsage::DYNAMIC);
 		white_texture->bind(0);
 		for(uint32_t i = 0; i < uint32_t(textures.size()); i++)

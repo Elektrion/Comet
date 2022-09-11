@@ -49,6 +49,8 @@ namespace comet {
     }
 
     void OrthographicCamera::recalculateViewProjection() {
+        CMT_PROFILE_FUNCTION();
+
         float width = base_width * glm::pow(2.0f, zoom_level);
         float height = width / aspect_ratio;
         glm::mat4 projection = glm::ortho(-width / 2.0f, width / 2.0f, -height / 2.0f, height / 2.0f, near, far);

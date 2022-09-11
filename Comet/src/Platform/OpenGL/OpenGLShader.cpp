@@ -6,6 +6,8 @@
 namespace comet {
 
 	OpenGLShader::OpenGLShader(const std::string& vertex_source, const std::string& fragment_source) : id(0) {
+		CMT_PROFILE_FUNCTION();
+
 		id = glCreateProgram();
 
 		GLuint vertex_shader = glCreateShader(GL_VERTEX_SHADER);
@@ -62,18 +64,26 @@ namespace comet {
 	}
 
 	OpenGLShader::~OpenGLShader() {
+		CMT_PROFILE_FUNCTION();
+
 		glDeleteProgram(id);
 	}
 
 	void OpenGLShader::bind() {
+		CMT_PROFILE_FUNCTION();
+
 		glUseProgram(id);
 	}
 
 	void OpenGLShader::unBind() {
+		CMT_PROFILE_FUNCTION();
+
 		glUseProgram(id);
 	}
 
 	void OpenGLShader::setUniformFloat(const std::string& name, float value) {
+		CMT_PROFILE_FUNCTION();
+
 #if defined(CMT_USE_OPENGL_4_5)
 		glProgramUniform1f(id, glGetUniformLocation(id, name.c_str()), value);
 #else
@@ -82,7 +92,9 @@ namespace comet {
 #endif
 	}
 
-	void OpenGLShader::setUniformFloat2(const std::string& name, glm::vec2 value) {
+	void OpenGLShader::setUniformFloat2(const std::string& name, const glm::vec2& value) {
+		CMT_PROFILE_FUNCTION();
+
 #if defined(CMT_USE_OPENGL_4_5)
 		glProgramUniform2fv(id, glGetUniformLocation(id, name.c_str()), 1, glm::value_ptr(value));
 #else
@@ -91,7 +103,9 @@ namespace comet {
 #endif
 	}
 
-	void OpenGLShader::setUniformFloat3(const std::string& name, glm::vec3 value) {
+	void OpenGLShader::setUniformFloat3(const std::string& name, const glm::vec3& value) {
+		CMT_PROFILE_FUNCTION();
+
 #if defined(CMT_USE_OPENGL_4_5)
 		glProgramUniform3fv(id, glGetUniformLocation(id, name.c_str()), 1, glm::value_ptr(value));
 #else
@@ -100,7 +114,9 @@ namespace comet {
 #endif
 	}
 
-	void OpenGLShader::setUniformFloat4(const std::string& name, glm::vec4 value) {
+	void OpenGLShader::setUniformFloat4(const std::string& name, const glm::vec4& value) {
+		CMT_PROFILE_FUNCTION();
+
 #if defined(CMT_USE_OPENGL_4_5)
 		glProgramUniform4fv(id, glGetUniformLocation(id, name.c_str()), 1, glm::value_ptr(value));
 #else
@@ -110,6 +126,8 @@ namespace comet {
 	}
 
 	void OpenGLShader::setUniformInt(const std::string& name, int value) {
+		CMT_PROFILE_FUNCTION();
+
 #if defined(CMT_USE_OPENGL_4_5)
 		glProgramUniform1i(id, glGetUniformLocation(id, name.c_str()), value);
 #else
@@ -119,6 +137,8 @@ namespace comet {
 	}
 
 	void OpenGLShader::setuniformIntArray(const std::string& name, uint32_t count, int* value) {
+		CMT_PROFILE_FUNCTION();
+
 #if defined(CMT_USE_OPENGL_4_5)
 		glProgramUniform1iv(id, glGetUniformLocation(id, name.c_str()), count, value);
 #else
@@ -127,7 +147,9 @@ namespace comet {
 #endif
 	}
 
-	void OpenGLShader::setUniformMat4(const std::string& name, glm::mat4 value) {
+	void OpenGLShader::setUniformMat4(const std::string& name, const glm::mat4& value) {
+		CMT_PROFILE_FUNCTION();
+
 #if defined(CMT_USE_OPENGL_4_5)
 		glProgramUniformMatrix4fv(id, glGetUniformLocation(id, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
 #else

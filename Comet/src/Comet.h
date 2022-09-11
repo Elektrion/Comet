@@ -8,6 +8,7 @@
 #include "Comet/Core/Assets.h"
 #include "Comet/Core/Core.h"
 #include "Comet/Core/Input.h"
+#include "Comet/Core/Instrumentation.h"
 #include "Comet/Core/KeyCodes.h"
 #include "Comet/Core/Layer.h"
 #include "Comet/Core/LayerStack.h"

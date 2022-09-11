@@ -38,7 +38,8 @@ project "Sandbox"
 	filter "configurations:Debug"
 		defines {
 			"CMT_DEBUG", 
-			"CMT_ENABLE_ASSERTS"
+			"CMT_ENABLE_ASSERTS", 
+			"CMT_ENABLE_PROFILING"
 		}
 		runtime "Debug"
 		symbols "On"
@@ -46,7 +47,8 @@ project "Sandbox"
 	filter "configurations:Release"
 		defines {
 			"CMT_RELEASE", 
-			"CMT_ENABLE_ASSERTS"
+			"CMT_ENABLE_ASSERTS", 
+			"CMT_ENABLE_PROFILING"
 		}
 		runtime "Release"
 		optimize "On"

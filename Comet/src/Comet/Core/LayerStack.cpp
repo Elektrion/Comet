@@ -4,10 +4,14 @@
 namespace comet {
 
 	LayerStack::~LayerStack() {
+		CMT_PROFILE_FUNCTION();
+
 		clear();
 	}
 
 	void LayerStack::push(Ref<Layer> layer) {
+		CMT_PROFILE_FUNCTION();
+
 		auto iter = std::find(layers.begin(), layers.end(), layer);
 		if(iter == layers.end()) {
 			layers.insert(layers.begin() + insertion_index, layer);
@@ -19,6 +23,8 @@ namespace comet {
 	}
 
 	void LayerStack::pop(Ref<Layer> layer) {
+		CMT_PROFILE_FUNCTION();
+
         auto iter = std::find(layers.begin(), layers.end(), layer);
 		if(iter != layers.end()) {
 			if(size_t(iter - layers.begin()) >= insertion_index)
@@ -32,6 +38,8 @@ namespace comet {
 	}
 
 	void LayerStack::pushOverlay(Ref<Layer> layer) {
+		CMT_PROFILE_FUNCTION();
+
         auto iter = std::find(layers.begin(), layers.end(), layer);
 		if(iter == layers.end()) {
 			layers.push_back(layer);
@@ -42,6 +50,8 @@ namespace comet {
 	}
 
 	void LayerStack::popOverlay(Ref<Layer> layer) {
+		CMT_PROFILE_FUNCTION();
+
         auto iter = std::find(layers.begin(), layers.end(), layer);
 		if(iter != layers.end()) {
 			if(size_t(iter - layers.begin()) < insertion_index) {
@@ -55,6 +65,8 @@ namespace comet {
 	}
 
 	void LayerStack::clear() {
+		CMT_PROFILE_FUNCTION();
+
 		for(auto layer : layers)
 			layer->onDetatch();
 		insertion_index = 0;

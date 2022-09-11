@@ -11,11 +11,15 @@ namespace comet {
 	class Renderer {
 	public:
 		static inline void init() {
+			CMT_PROFILE_FUNCTION();
+
 			RenderCommand::init();
 			Renderer2D::init();
 		}
 
 		static inline void shutdown() {
+			CMT_PROFILE_FUNCTION();
+
 			Renderer2D::shutdown();
 		}
 
@@ -24,12 +28,16 @@ namespace comet {
 		}
 
 		static inline void drawIndexed(Ref<VertexArray> vertex_array, Ref<Shader> shader) {
+			CMT_PROFILE_FUNCTION();
+
 			vertex_array->bind();
 			shader->bind();
 			RenderCommand::drawIndexed(vertex_array);
 		}
 
 		static inline void drawIndexed(Ref<VertexArray> vertex_array, Ref<Shader> shader, uint32_t count) {
+			CMT_PROFILE_FUNCTION();
+
 			vertex_array->bind();
 			shader->bind();
 			RenderCommand::drawIndexed(vertex_array, count);

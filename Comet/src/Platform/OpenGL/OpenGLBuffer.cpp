@@ -13,6 +13,8 @@ namespace comet {
 	};
 
 	OpenGLVertexBuffer::OpenGLVertexBuffer() : id(0) {
+		CMT_PROFILE_FUNCTION();
+
 #if defined(CMT_USE_OPENGL_4_5)
 		glCreateBuffers(1, &id);
 #else
@@ -21,18 +23,26 @@ namespace comet {
 	}
 
 	OpenGLVertexBuffer::~OpenGLVertexBuffer() {
+		CMT_PROFILE_FUNCTION();
+
 		glDeleteBuffers(1, &id);
 	}
 
 	void OpenGLVertexBuffer::bind() {
+		CMT_PROFILE_FUNCTION();
+
 		glBindBuffer(GL_ARRAY_BUFFER, id);
 	}
 
 	void OpenGLVertexBuffer::unBind() {
+		CMT_PROFILE_FUNCTION();
+
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
 	void OpenGLVertexBuffer::setData(uint32_t size, void* data, BufferUsage usage) {
+		CMT_PROFILE_FUNCTION();
+
 #if defined(CMT_USE_OPENGL_4_5)
 		switch(usage) {
 			default:
@@ -58,6 +68,8 @@ namespace comet {
 	}
 
 	void OpenGLVertexBuffer::setLayout(const BufferLayout& layout) {
+		CMT_PROFILE_FUNCTION();
+
 		bind();
 		GLuint index = 0;
 		const char* offset = 0;
@@ -71,6 +83,8 @@ namespace comet {
 
 
 	OpenGLIndexBuffer::OpenGLIndexBuffer() : id(0), count(0) {
+		CMT_PROFILE_FUNCTION();
+
 #if defined(CMT_USE_OPENGL_4_5)
 		glCreateBuffers(1, &id);
 #else
@@ -79,14 +93,20 @@ namespace comet {
 	}
 
 	OpenGLIndexBuffer::~OpenGLIndexBuffer() {
+		CMT_PROFILE_FUNCTION();
+
 		glDeleteBuffers(1, &id);
 	}
 
 	void OpenGLIndexBuffer::bind() {
+		CMT_PROFILE_FUNCTION();
+
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id);
 	}
 
 	void OpenGLIndexBuffer::unBind() {
+		CMT_PROFILE_FUNCTION();
+
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
@@ -95,6 +115,8 @@ namespace comet {
 	}
 
 	void OpenGLIndexBuffer::setData(uint32_t count, void* data, BufferUsage usage) {
+		CMT_PROFILE_FUNCTION();
+
 #if defined(CMT_USE_OPENGL_4_5)
 		this->count = count;
 		switch(usage) {
