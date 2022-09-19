@@ -30,14 +30,15 @@ public:
 		comet::Renderer2D::beginScene(camera_controller->getCamera());
 		for(int32_t y = -background_size_half; y < background_size_half; y++)
 			for(int32_t x = -background_size_half; x < background_size_half; x++)
-				comet::Renderer2D::drawQuad({ x, y }, { 1.0f, 1.0f }, 
+				comet::Renderer2D::drawQuad({ x, y, -0.9f }, { 1.0f, 1.0f }, 
 					background[(y + background_size_half) * background_size_half * 2 + (x + background_size_half)] ? grass_01_texture : grass_02_texture);
 
+		comet::Renderer2D::drawQuad({  5.0f,  5.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f, 1.0f, 1.0f });
 		comet::Renderer2D::drawQuad({ -5.0f, -5.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 0.0f, 0.0f, 1.0f });
 		comet::Renderer2D::drawQuad({  5.0f, -5.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f });
 		comet::Renderer2D::drawQuad({  5.0f,  5.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f, 1.0f, 1.0f });
 		comet::Renderer2D::drawQuad({ -5.0f,  5.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 0.0f, 1.0f, 1.0f });
-		comet::Renderer2D::drawQuad({ 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, water_texture);
+		comet::Renderer2D::drawQuad({  0.0f,  0.0f, 0.0f }, { 1.0f, 1.0f }, water_texture);
 		comet::Renderer2D::endScene();
 	}
 

@@ -2,7 +2,7 @@
 #include "Renderer2D.h"
 
 #include "Comet/Renderer/Buffer.h"
-#include "Comet/Renderer/Renderer.h"
+#include "Comet/Renderer/RenderCommand.h"
 #include "Comet/Renderer/Texture.h"
 
 namespace comet {
@@ -141,7 +141,9 @@ namespace comet {
 		white_texture->bind(0);
 		for(uint32_t i = 0; i < uint32_t(textures.size()); i++)
 			textures[i]->bind(i + 1);
-		Renderer::drawIndexed(quad_vertex_array, quad_shader, quad_index * 6);
+		quad_shader->bind();
+		quad_vertex_array->bind();
+		RenderCommand::drawIndexed(quad_vertex_array, quad_index * 6);
 		quad_index = 0;
 		textures.clear();
 	}
