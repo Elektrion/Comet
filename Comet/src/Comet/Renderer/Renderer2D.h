@@ -20,6 +20,8 @@ namespace comet {
 
 		static void drawQuad(glm::vec2 position, glm::vec2 size, glm::vec4 color);
 		static void drawQuad(glm::vec3 position, glm::vec2 size, glm::vec4 color);
+		static void drawQuad(glm::vec2 position, glm::vec2 size, const Ref<SubTexture2D>& texture, glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f });
+		static void drawQuad(glm::vec3 position, glm::vec2 size, const Ref<SubTexture2D>& texture, glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f });
 		static void drawQuad(glm::vec2 position, glm::vec2 size, const Ref<Texture2D>& texture, glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f });
 		static void drawQuad(glm::vec3 position, glm::vec2 size, const Ref<Texture2D>& texture, glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f });
 	private:

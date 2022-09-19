@@ -99,6 +99,29 @@ namespace comet {
 		putQuad(position, size, color);
 	}
 
+	void Renderer2D::drawQuad(glm::vec2 position, glm::vec2 size, const Ref<SubTexture2D>& texture, glm::vec4 color) {
+		drawQuad({ position.x, position.y, 0.0f }, size, texture, color);
+	}
+
+	void Renderer2D::drawQuad(glm::vec3 position, glm::vec2 size, const Ref<SubTexture2D>& texture, glm::vec4 color) {
+		auto iter = std::find(textures.begin(), textures.end(), texture->getParent());
+		if(iter != textures.end()) {
+			putQuad(position, size, color, texture->getTextureCoords(), float(iter - textures.begin()) + 1.0f);
+			return;
+		}
+
+		iter = std::find(textures.begin(), textures.end(), texture);
+		if(iter != textures.end()) {
+			putQuad(position, size, color, texture->getTextureCoords(), float(iter - textures.begin()) + 1.0f);
+			return;
+		}
+
+		if(textures.size() == max_textures)
+			flushQuads();
+		textures.push_back(texture->getParent());
+		putQuad(position, size, color, texture->getTextureCoords(), float(textures.size())); // size - 1 gives index but adding 1 since the blank texture is always at slot 0
+	}
+
 	void Renderer2D::drawQuad(glm::vec2 position, glm::vec2 size, const Ref<Texture2D>& texture, glm::vec4 color) {
 		drawQuad({ position.x, position.y, 0.0f }, size, texture, color);
 	}

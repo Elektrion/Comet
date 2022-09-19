@@ -96,4 +96,15 @@ namespace comet {
 		return nullptr;
 	}
 
+	Ref<SubTexture2D> SubTexture2D::create(const Ref<Texture2D>& parent, uint32_t x, uint32_t y, uint32_t width, uint32_t height) {
+		x = Math::min(x, parent->getWidth());
+		y = Math::min(x, parent->getHeight());
+		width = Math::min(width, parent->getWidth() - x);
+		height = Math::min(height, parent->getHeight() - y);
+		if(auto sub_texture_parent = std::dynamic_pointer_cast<SubTexture2D>(parent))
+			return createRef<SubTexture2D>(sub_texture_parent->getParent(), x + sub_texture_parent->getX(), y + sub_texture_parent->getY(), width, height);
+		else
+			return createRef<SubTexture2D>(parent, x, y, width, height);
+	}
+
 }
