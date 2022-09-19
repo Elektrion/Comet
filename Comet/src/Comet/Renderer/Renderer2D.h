@@ -18,12 +18,19 @@ namespace comet {
 		static void beginScene(const Ref<Camera>& camera);
 		static void endScene();
 
-		static void drawQuad(glm::vec2 position, glm::vec2 size, glm::vec4 color);
-		static void drawQuad(glm::vec3 position, glm::vec2 size, glm::vec4 color);
-		static void drawQuad(glm::vec2 position, glm::vec2 size, const Ref<SubTexture2D>& texture, glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f });
-		static void drawQuad(glm::vec3 position, glm::vec2 size, const Ref<SubTexture2D>& texture, glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f });
-		static void drawQuad(glm::vec2 position, glm::vec2 size, const Ref<Texture2D>& texture, glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f });
-		static void drawQuad(glm::vec3 position, glm::vec2 size, const Ref<Texture2D>& texture, glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f });
+		static void drawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color);
+		static void drawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color);
+		static void drawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<SubTexture2D>& texture, const glm::vec4& color = { 1.0f, 1.0f, 1.0f, 1.0f });
+		static void drawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<SubTexture2D>& texture, const glm::vec4& color = { 1.0f, 1.0f, 1.0f, 1.0f });
+		static void drawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec4& color = { 1.0f, 1.0f, 1.0f, 1.0f });
+		static void drawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec4& color = { 1.0f, 1.0f, 1.0f, 1.0f });
+
+		static void drawQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const glm::vec4& color);
+		static void drawQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const glm::vec4& color);
+		static void drawQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& texture, const glm::vec4& color = { 1.0f, 1.0f, 1.0f, 1.0f });
+		static void drawQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& texture, const glm::vec4& color = { 1.0f, 1.0f, 1.0f, 1.0f });
+		static void drawQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, const glm::vec4& color = { 1.0f, 1.0f, 1.0f, 1.0f });
+		static void drawQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, const glm::vec4& color = { 1.0f, 1.0f, 1.0f, 1.0f });
 	private:
 		struct Vertex {
 			glm::vec3 position;
@@ -32,8 +39,14 @@ namespace comet {
 			float texture_index;
 		};
 
-		static void putQuad(glm::vec3 position, glm::vec2 size, glm::vec4 color,
-			std::array<glm::vec2, 4> texture_coords = { glm::vec2(0.0f, 0.0f), glm::vec2(1.0f, 0.0f), glm::vec2(1.0f, 1.0f), glm::vec2(0.0f, 1.0f) }, float texture_index = 0.0f);
+		static std::array<glm::vec3, 4> getPositions(const glm::vec3& position, const glm::vec2& size);
+		static std::array<glm::vec3, 4> getPositions(const glm::vec3& position, const glm::vec2& size, float rotation);
+
+		static float getTextureIndex(const Ref<Texture2D>& texture);
+		static float getTextureIndex(const Ref<SubTexture2D>& texture);
+
+		static void putQuad(const std::array<glm::vec3, 4>& positions, const glm::vec4& color,
+			const std::array<glm::vec2, 4>& texture_coords = { glm::vec2(0.0f, 0.0f), glm::vec2(1.0f, 0.0f), glm::vec2(1.0f, 1.0f), glm::vec2(0.0f, 1.0f) }, float texture_index = 0.0f);
 		static void flushQuads();
 	private:
 		static uint32_t max_vertices;

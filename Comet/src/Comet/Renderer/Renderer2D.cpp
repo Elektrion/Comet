@@ -91,62 +91,109 @@ namespace comet {
 		flushQuads();
 	}
 
-	void Renderer2D::drawQuad(glm::vec2 position, glm::vec2 size, glm::vec4 color) {
+
+	void Renderer2D::drawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color) {
 		drawQuad({ position.x, position.y, 0.0f }, size, color);
 	}
 
-	void Renderer2D::drawQuad(glm::vec3 position, glm::vec2 size, glm::vec4 color) {
-		putQuad(position, size, color);
+	void Renderer2D::drawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color) {
+		putQuad(getPositions(position, size), color);
 	}
 
-	void Renderer2D::drawQuad(glm::vec2 position, glm::vec2 size, const Ref<SubTexture2D>& texture, glm::vec4 color) {
+	void Renderer2D::drawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<SubTexture2D>& texture, const glm::vec4& color) {
 		drawQuad({ position.x, position.y, 0.0f }, size, texture, color);
 	}
 
-	void Renderer2D::drawQuad(glm::vec3 position, glm::vec2 size, const Ref<SubTexture2D>& texture, glm::vec4 color) {
-		auto iter = std::find(textures.begin(), textures.end(), texture->getParent());
-		if(iter != textures.end()) {
-			putQuad(position, size, color, texture->getTextureCoords(), float(iter - textures.begin()) + 1.0f);
-			return;
-		}
-
-		iter = std::find(textures.begin(), textures.end(), texture);
-		if(iter != textures.end()) {
-			putQuad(position, size, color, texture->getTextureCoords(), float(iter - textures.begin()) + 1.0f);
-			return;
-		}
-
-		if(textures.size() == max_textures)
-			flushQuads();
-		textures.push_back(texture->getParent());
-		putQuad(position, size, color, texture->getTextureCoords(), float(textures.size())); // size - 1 gives index but adding 1 since the blank texture is always at slot 0
+	void Renderer2D::drawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<SubTexture2D>& texture, const glm::vec4& color) {
+		putQuad(getPositions(position, size), color, texture->getTextureCoords(), getTextureIndex(texture));
 	}
 
-	void Renderer2D::drawQuad(glm::vec2 position, glm::vec2 size, const Ref<Texture2D>& texture, glm::vec4 color) {
+	void Renderer2D::drawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec4& color) {
 		drawQuad({ position.x, position.y, 0.0f }, size, texture, color);
 	}
 
-	void Renderer2D::drawQuad(glm::vec3 position, glm::vec2 size, const Ref<Texture2D>& texture, glm::vec4 color) {
+	void Renderer2D::drawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec4& color) {
+		putQuad(getPositions(position, size), color, texture->getTextureCoords(), getTextureIndex(texture));
+	}
+
+
+	void Renderer2D::drawQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const glm::vec4& color) {
+		drawQuad({ position.x, position.y, 0.0f }, size, rotation, color);
+	}
+
+	void Renderer2D::drawQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const glm::vec4& color) {
+		putQuad(getPositions(position, size, rotation), color);
+	}
+
+	void Renderer2D::drawQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& texture, const glm::vec4& color) {
+		drawQuad({ position.x, position.y, 0.0f }, size, rotation, texture, color);
+	}
+
+	void Renderer2D::drawQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& texture, const glm::vec4& color) {
+		putQuad(getPositions(position, size, rotation), color, texture->getTextureCoords(), getTextureIndex(texture));
+	}
+
+	void Renderer2D::drawQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, const glm::vec4& color) {
+		drawQuad({ position.x, position.y, 0.0f }, size, rotation, texture, color);
+	}
+
+	void Renderer2D::drawQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, const glm::vec4& color) {
+		putQuad(getPositions(position, size, rotation), color, texture->getTextureCoords(), getTextureIndex(texture));
+	}
+
+
+	std::array<glm::vec3, 4> Renderer2D::getPositions(const glm::vec3& position, const glm::vec2& size) {
+		return {
+			glm::vec3(position.x - size.x * 0.5f, position.y - size.y * 0.5f, position.z), 
+			glm::vec3(position.x + size.x * 0.5f, position.y - size.y * 0.5f, position.z), 
+			glm::vec3(position.x + size.x * 0.5f, position.y + size.y * 0.5f, position.z), 
+			glm::vec3(position.x - size.x * 0.5f, position.y + size.y * 0.5f, position.z)
+		};
+	}
+
+	std::array<glm::vec3, 4> Renderer2D::getPositions(const glm::vec3& position, const glm::vec2& size, float rotation) {
+		glm::mat2 mat = {
+			Math::cos(rotation), -Math::sin(rotation),
+			Math::sin(rotation), Math::cos(rotation)
+		};
+
+		return {
+			glm::vec3(glm::vec2(-size.x * 0.5f, -size.y * 0.5f) * mat, 0.0f) + position, 
+			glm::vec3(glm::vec2(+size.x * 0.5f, -size.y * 0.5f) * mat, 0.0f) + position, 
+			glm::vec3(glm::vec2(+size.x * 0.5f, +size.y * 0.5f) * mat, 0.0f) + position, 
+			glm::vec3(glm::vec2(-size.x * 0.5f, +size.y * 0.5f) * mat, 0.0f) + position
+		};
+	}
+
+
+	float Renderer2D::getTextureIndex(const Ref<Texture2D>& texture) {
 		auto iter = std::find(textures.begin(), textures.end(), texture);
-		if(iter != textures.end()) {
-			putQuad(position, size, color, texture->getTextureCoords(), float(iter - textures.begin()) + 1.0f);
-			return;
-		}
+		if(iter != textures.end())
+			return float(iter - textures.begin()) + 1.0f;
 
 		if(textures.size() == max_textures)
 			flushQuads();
 		textures.push_back(texture);
-		putQuad(position, size, color, texture->getTextureCoords(), float(textures.size())); // size - 1 gives index but adding 1 since the blank texture is always at slot 0
+		return float(textures.size()); // size - 1 gives index but adding 1 since the blank texture is always at slot 0
 	}
 
-	void Renderer2D::putQuad(glm::vec3 position, glm::vec2 size, glm::vec4 color, std::array<glm::vec2, 4> texture_coords, float texture_index) {
-		std::array<glm::vec3, 4> positions = {
-			glm::vec3(position.x - size.x / 2.0f, position.y - size.y / 2.0f, position.z),
-			glm::vec3(position.x + size.x / 2.0f, position.y - size.y / 2.0f, position.z),
-			glm::vec3(position.x + size.x / 2.0f, position.y + size.y / 2.0f, position.z),
-			glm::vec3(position.x - size.x / 2.0f, position.y + size.y / 2.0f, position.z)
-		};
+	float Renderer2D::getTextureIndex(const Ref<SubTexture2D>& texture) {
+		auto iter = std::find(textures.begin(), textures.end(), texture->getParent());
+		if(iter != textures.end())
+			return float(iter - textures.begin()) + 1.0f;
 
+		iter = std::find(textures.begin(), textures.end(), texture);
+		if(iter != textures.end())
+			return float(iter - textures.begin()) + 1.0f;
+
+		if(textures.size() == max_textures)
+			flushQuads();
+		textures.push_back(texture->getParent());
+		return float(textures.size()); // size - 1 gives index but adding 1 since the blank texture is always at slot 0
+	}
+
+
+	void Renderer2D::putQuad(const std::array<glm::vec3, 4>& positions, const glm::vec4& color, const std::array<glm::vec2, 4>& texture_coords, float texture_index) {
 		quad_vertices[4 * quad_index + 0] = { positions[0], color, texture_coords[0], texture_index };
 		quad_vertices[4 * quad_index + 1] = { positions[1], color, texture_coords[1], texture_index };
 		quad_vertices[4 * quad_index + 2] = { positions[2], color, texture_coords[2], texture_index };
