@@ -3,7 +3,7 @@
 
 namespace comet {
 
-	Scope<RenderAPI> RenderCommand::render_api = Scope<RenderAPI>(nullptr);
+	Scope<RenderAPI> RenderCommand::render_api = nullptr;
 
 	void RenderCommand::init() {
 		render_api = RenderAPI::create();

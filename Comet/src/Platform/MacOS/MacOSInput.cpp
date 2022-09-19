@@ -19,7 +19,7 @@ namespace comet {
 		return glfwGetMouseButton(static_cast<GLFWwindow*>(Application::get()->getWindow()->getNativeWindow()), button) == GLFW_PRESS;
 	}
 
-	glm::vec2 Input::getMousePosition() {
+	std::pair<float, float> Input::getMousePosition() {
 		CMT_PROFILE_FUNCTION();
 
 		double x = 0;

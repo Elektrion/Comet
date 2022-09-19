@@ -18,11 +18,11 @@ namespace comet {
 			render_api->clear();
 		}
 
-		static inline void drawIndexed(Ref<VertexArray> vertex_array) {
+		static inline void drawIndexed(const Ref<VertexArray>& vertex_array) {
 			render_api->drawIndexed(vertex_array);
 		}
 
-		static inline void drawIndexed(Ref<VertexArray> vertex_array, uint32_t count) {
+		static inline void drawIndexed(const Ref<VertexArray>& vertex_array, uint32_t count) {
 			render_api->drawIndexed(vertex_array, count);
 		}
 	private:

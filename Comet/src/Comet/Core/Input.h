@@ -1,7 +1,5 @@
 #pragma once
 
-#include "glm/glm.hpp"
-
 #include "Comet/Core/KeyCodes.h"
 #include "Comet/Core/MouseCodes.h"
 
@@ -13,7 +11,7 @@ namespace comet {
 
 		static bool isMouseButtonPressed(MouseCode button);
 
-		static glm::vec2 getMousePosition();
+		static std::pair<float, float> getMousePosition();
 	};
 
 }

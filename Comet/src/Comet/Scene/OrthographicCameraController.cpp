@@ -23,8 +23,8 @@ namespace comet {
 		CMT_PROFILE_FUNCTION();
 
 		EventDispatcher dispatcher(e);
-		dispatcher.dispatch<WindowResizedEvent>(std::bind(&OrthographicCameraController::onWindowResized, this, std::placeholders::_1));
-		dispatcher.dispatch<MouseScrolledEvent>(std::bind(&OrthographicCameraController::onMouseScrolled, this, std::placeholders::_1));
+		dispatcher.dispatch<WindowResizedEvent>(BIND_MEMBER_EVENT_FUNCTION(OrthographicCameraController::onWindowResized));
+		dispatcher.dispatch<MouseScrolledEvent>(BIND_MEMBER_EVENT_FUNCTION(OrthographicCameraController::onMouseScrolled));
 	}
 
 	bool OrthographicCameraController::onWindowResized(WindowResizedEvent& e) {

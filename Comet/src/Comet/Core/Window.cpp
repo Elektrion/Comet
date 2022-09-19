@@ -17,7 +17,7 @@ namespace comet {
 #elif defined(CMT_PLATFORM_MACOS)
 		return createScope<MacOSWindow>(props);
 #endif
-		return Scope<Window>(nullptr);
+		return nullptr;
 	}
 
 }

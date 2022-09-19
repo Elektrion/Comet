@@ -23,20 +23,24 @@ namespace comet {
 
 	class Event {
 	public:
-		
-		virtual ~Event() = default;
+		virtual inline ~Event() noexcept = default;
+
+		inline Event(const Event&) noexcept = delete;
+		inline Event(const Event&&) noexcept = delete;
+		inline Event& operator=(const Event&) noexcept = delete;
+		inline Event& operator=(const Event&&) noexcept = delete;
 
 		// EventType::getStaticType()
-		virtual EventType getType() const = 0;
-		virtual std::string getName() const = 0;
-		virtual uint32_t getCategoryFlags() const = 0;
-		virtual inline std::string toString() const { return getName(); }
+		virtual EventType getType() const noexcept = 0;
+		virtual std::string_view getName() const noexcept = 0;
+		virtual uint32_t getCategoryFlags() const noexcept = 0;
+		virtual inline std::string toString() const { return std::string(getName()); }
 
-		inline bool isInCategory(EventCategory category) const { return getCategoryFlags() & category; }
-		inline void setHandled() { handled = true; }
-		inline bool isHandled() const { return handled; }
+		inline bool isInCategory(EventCategory category) const noexcept { return getCategoryFlags() & category; }
+		inline void setHandled() noexcept { handled = true; }
+		inline bool isHandled() const noexcept { return handled; }
 	protected:
-		inline Event() : handled(false) {}
+		inline Event() noexcept : handled(false) {}
 	private:
 		bool handled;
 	};
@@ -50,9 +54,11 @@ namespace comet {
 
 	template<typename T> using EventFn = std::function<bool(T&)>;
 
+#define BIND_MEMBER_EVENT_FUNCTION(func) std::bind(&func, this, std::placeholders::_1)
+
 	class EventDispatcher {
 	public:
-		inline EventDispatcher(Event& e) : e(e) {}
+		inline EventDispatcher(Event& e) noexcept : e(e) {}
 
 		template<typename T> inline bool dispatch(EventFn<T> func) const requires(std::is_base_of_v<Event, T>) {
 			if((e.getType() == T::getStaticType()) && !e.isHandled())

@@ -28,7 +28,7 @@ namespace comet {
 		virtual void bind() override;
 		virtual void unBind() override;
 
-		virtual uint32_t getCount() const override;
+		virtual uint32_t getCount() const noexcept override;
 
 		virtual void setData(uint32_t count, void* data, BufferUsage usage) override;
 	private:

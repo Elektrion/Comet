@@ -13,21 +13,21 @@ namespace comet {
 	class MacOSWindow : public Window {
 	public:
 		MacOSWindow(const WindowProperties& props);
-		~MacOSWindow();
+		virtual ~MacOSWindow();
 
-		virtual inline uint32_t getWidth() const override { return data.width; }
-		virtual inline uint32_t getHeight() const override { return data.height; }
-		virtual inline float getAspectRatio() const override { return float(data.width) / float(data.height); }
-		virtual inline bool isVsyncEnabled() const override { return data.vsync; };
-		virtual inline bool isMinimized() const override { return data.minimized; }
-		virtual inline bool isMaximized() const override { return data.maximized; }
+		virtual inline uint32_t getWidth() const noexcept override { return data.width; }
+		virtual inline uint32_t getHeight() const noexcept override { return data.height; }
+		virtual inline float getAspectRatio() const noexcept override { return float(data.width) / float(data.height); }
+		virtual inline bool isVsyncEnabled() const noexcept override { return data.vsync; };
+		virtual inline bool isMinimized() const noexcept override { return data.minimized; }
+		virtual inline bool isMaximized() const noexcept override { return data.maximized; }
 
 		virtual void setVsync(bool vsync) override;
 		virtual void setMinimized(bool minimized) override;
 		virtual void setMaximized(bool maximized) override;
 
-		virtual inline void* getNativeWindow() const override { return window; }
-		virtual inline GraphicsContext& getContext() override { return *context; }
+		virtual inline void* getNativeWindow() const noexcept override { return window; }
+		virtual inline GraphicsContext& getContext() noexcept override { return *context; }
 
 		virtual void onUpdate(Timestep dt) override;
 		virtual void setEventCallback(EventCallbackFn callback) override;

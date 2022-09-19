@@ -41,7 +41,7 @@ namespace comet {
 				break;
 		}
 #endif
-		return Scope<RenderAPI>(nullptr);
+		return nullptr;
 	}
 
 }

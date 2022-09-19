@@ -39,7 +39,7 @@ namespace comet {
 				break;
 		}
 #endif
-		return Ref<OpenGLTexture2D>(nullptr);
+		return nullptr;
 	}
 
 	Ref<Texture2D> Texture2D::create(uint32_t width, uint32_t height, uint32_t channels, const unsigned char* const pixels, bool pixelate) {
@@ -66,7 +66,7 @@ namespace comet {
 				break;
 		}
 #endif
-		return Ref<OpenGLTexture2D>(nullptr);
+		return nullptr;
 	}
 
 	Ref<Texture2D> Texture2D::create(uint32_t width, uint32_t height, glm::vec4 color, bool pixelate) {
@@ -93,7 +93,7 @@ namespace comet {
 				break;
 		}
 #endif
-		return Ref<OpenGLTexture2D>(nullptr);
+		return nullptr;
 	}
 
 }

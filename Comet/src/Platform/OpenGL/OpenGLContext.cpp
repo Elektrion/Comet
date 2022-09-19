@@ -5,8 +5,6 @@
 
 namespace comet {
 
-	OpenGLContext::OpenGLContext(GLFWwindow* window_handle) : window_handle(window_handle) {}
-
 	void OpenGLContext::init() {
 		CMT_PROFILE_FUNCTION();
 
@@ -19,6 +17,11 @@ namespace comet {
 		CMT_CORE_INFO("  Vendor: {0}", glGetString(GL_VENDOR));
 		CMT_CORE_INFO("  Renderer: {0}", glGetString(GL_RENDERER));
 		CMT_CORE_INFO("  Version: {0}", glGetString(GL_VERSION));
+
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LESS);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
 	void OpenGLContext::swapBuffers() {

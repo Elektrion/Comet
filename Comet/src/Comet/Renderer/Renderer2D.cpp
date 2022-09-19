@@ -31,10 +31,10 @@ namespace comet {
 		quad_vertex_buffer = VertexBuffer::create();
 		quad_vertex_buffer->bind();
 		quad_vertex_buffer->setLayout({
-			{ BufferLayout::Type::FLOAT3, "a_position" }, 
-			{ BufferLayout::Type::FLOAT4, "a_color" }, 
-			{ BufferLayout::Type::FLOAT2, "a_texture_coords" },
-			{ BufferLayout::Type::FLOAT, "a_texture_index" }
+			{ BufferLayout::TYPE_FLOAT3, "a_position" }, 
+			{ BufferLayout::TYPE_FLOAT4, "a_color" }, 
+			{ BufferLayout::TYPE_FLOAT2, "a_texture_coords" },
+			{ BufferLayout::TYPE_FLOAT, "a_texture_index" }
 		});
 		quad_vertex_array->addVertexBuffer(quad_vertex_buffer);
 

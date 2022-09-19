@@ -48,6 +48,7 @@ namespace comet {
 			CMT_CORE_ERROR("Too many channels specified for texture creation: {0}. Has to be at most 4.", channels);
 			channels = 4;
 		}
+
 		initOpenGLTexture(channels, pixels, pixelate);
 	}
 
@@ -60,6 +61,7 @@ namespace comet {
 			static_cast<unsigned char>(glm::clamp(color.b, 0.0f, 1.0f) * 255), 
 			static_cast<unsigned char>(glm::clamp(color.a, 0.0f, 1.0f) * 255)
 		};
+
 		initOpenGLTexture(4, pixels, pixelate);
 	}
 

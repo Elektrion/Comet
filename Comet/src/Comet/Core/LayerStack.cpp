@@ -9,7 +9,7 @@ namespace comet {
 		clear();
 	}
 
-	void LayerStack::push(Ref<Layer> layer) {
+	void LayerStack::push(const Ref<Layer>& layer) noexcept {
 		CMT_PROFILE_FUNCTION();
 
 		auto iter = std::find(layers.begin(), layers.end(), layer);
@@ -18,11 +18,10 @@ namespace comet {
 			layer->onAttatch();
 			insertion_index++;
 		}
-		else
-			CMT_CORE_WARN("Layer has already been added to the layerstack!");
+		else CMT_CORE_WARN("Layer has already been added to the layerstack!");
 	}
 
-	void LayerStack::pop(Ref<Layer> layer) {
+	void LayerStack::pop(const Ref<Layer>& layer) noexcept {
 		CMT_PROFILE_FUNCTION();
 
         auto iter = std::find(layers.begin(), layers.end(), layer);
@@ -33,11 +32,10 @@ namespace comet {
 				insertion_index--;
 			layers.erase(iter);
 		}
-		else
-			CMT_CORE_WARN("Layer is not in the layerstack!");
+		else CMT_CORE_WARN("Layer is not in the layerstack!");
 	}
 
-	void LayerStack::pushOverlay(Ref<Layer> layer) {
+	void LayerStack::pushOverlay(const Ref<Layer>& layer) noexcept {
 		CMT_PROFILE_FUNCTION();
 
         auto iter = std::find(layers.begin(), layers.end(), layer);
@@ -45,11 +43,10 @@ namespace comet {
 			layers.push_back(layer);
 			layer->onAttatch();
 		}
-		else
-			CMT_CORE_WARN("Layer has already been added to the layerstack!");
+		else CMT_CORE_WARN("Layer has already been added to the layerstack!");
 	}
 
-	void LayerStack::popOverlay(Ref<Layer> layer) {
+	void LayerStack::popOverlay(const Ref<Layer>& layer) noexcept {
 		CMT_PROFILE_FUNCTION();
 
         auto iter = std::find(layers.begin(), layers.end(), layer);
@@ -60,14 +57,13 @@ namespace comet {
 			}
 			layers.erase(iter);
 		}
-		else
-			CMT_CORE_WARN("Layer is not in the layerstack!");
+		else CMT_CORE_WARN("Layer is not in the layerstack!");
 	}
 
 	void LayerStack::clear() {
 		CMT_PROFILE_FUNCTION();
 
-		for(auto layer : layers)
+		for(const auto& layer : layers)
 			layer->onDetatch();
 		insertion_index = 0;
 		layers.clear();

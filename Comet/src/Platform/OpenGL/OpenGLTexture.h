@@ -14,12 +14,12 @@ namespace comet {
 		virtual void bind(uint32_t slot = 0) override;
 		virtual void unBind(uint32_t slot = 0) override;
 
-		virtual inline uint32_t getWidth() const override { return width; }
-		virtual inline uint32_t getHeight() const override { return height; }
+		virtual inline uint32_t getWidth() const noexcept override { return width; }
+		virtual inline uint32_t getHeight() const noexcept override { return height; }
 
-		virtual inline glm::vec2 getTextureCoordsBottomLeft() const override { return { 0.0f, 0.0f }; }
-		virtual inline glm::vec2 getTextureCoordsTopRight() const override { return { 1.0f, 1.0f }; }
-		virtual inline std::array<glm::vec2, 4> getTextureCoords() const override { return { glm::vec2(0.0f, 0.0f), glm::vec2(1.0f, 0.0f), glm::vec2(1.0f, 1.0f), glm::vec2(0.0f, 1.0f) }; }
+		virtual inline glm::vec2 getTextureCoordsBottomLeft() const noexcept override { return { 0.0f, 0.0f }; }
+		virtual inline glm::vec2 getTextureCoordsTopRight() const noexcept override { return { 1.0f, 1.0f }; }
+		virtual inline std::array<glm::vec2, 4> getTextureCoords() const noexcept override { return { glm::vec2(0.0f, 0.0f), glm::vec2(1.0f, 0.0f), glm::vec2(1.0f, 1.0f), glm::vec2(0.0f, 1.0f) }; }
 	private:
 		void initOpenGLTexture(uint32_t channels, const unsigned char* const pixels, bool pixelate);
 	private:

@@ -8,6 +8,8 @@
 #include <thread>
 #include <fstream>
 #include <iostream>
+#include <optional>
+#include <stdint.h>
 #include <algorithm>
 #include <functional>
 #include <filesystem>
@@ -16,7 +18,3 @@
 #include <array>
 #include <vector>
 #include <unordered_map>
-
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
-#include "glm/gtc/type_ptr.hpp"

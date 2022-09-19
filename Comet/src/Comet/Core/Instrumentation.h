@@ -1,20 +1,11 @@
 #pragma once
 
 #include <string>
-#include <chrono>
-#include <ostream>
 #include <thread>
 #include <memory>
+#include <chrono>
 
 namespace comet {
-
-	class InstrumentationTimer {
-	public:
-		InstrumentationTimer(const std::string& name);
-		~InstrumentationTimer();
-	private:
-		std::string name;
-	};
 
 	class Instrumentation {
 	public:
@@ -26,7 +17,7 @@ namespace comet {
 			uint64_t tid;
 		};
 	public:
-		static void begin(const std::string& filename);
+		static bool begin(const std::string& filename);
 		static void end();
 		static void submitEvent(InstrumentationData data);
 	private:
@@ -35,11 +26,21 @@ namespace comet {
 		static std::vector<InstrumentationData> submition_buffer;
 		static volatile bool work_available;
 		static volatile bool stop_worker;
+	};
 
+	class InstrumentationTimer {
+	public:
+		inline InstrumentationTimer(const std::string& name) noexcept : name(name) {
+			Instrumentation::submitEvent({ name, 'B', std::chrono::time_point_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now()).time_since_epoch().count(),
+				0, std::hash<std::thread::id>{}(std::this_thread::get_id()) });
+		}
 
-
-		static std::string active_file;
-		static std::ofstream os;
+		inline ~InstrumentationTimer() noexcept {
+			Instrumentation::submitEvent({ name, 'E', std::chrono::time_point_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now()).time_since_epoch().count(),
+				0, std::hash<std::thread::id>{}(std::this_thread::get_id()) });
+		}
+	private:
+		std::string name;
 	};
 
 }

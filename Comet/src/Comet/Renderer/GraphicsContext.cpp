@@ -39,7 +39,7 @@ namespace comet {
 				break;
 		}
 #endif
-		return Scope<OpenGLContext>(nullptr);
+		return nullptr;
 	}
 
 }

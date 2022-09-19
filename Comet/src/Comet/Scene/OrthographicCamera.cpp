@@ -8,47 +8,47 @@ namespace comet {
         recalculateViewProjection();
     }
 
-    void OrthographicCamera::setPosition(glm::vec3 position) {
+    void OrthographicCamera::setPosition(glm::vec3 position) noexcept {
         this->position = position;
         recalculateViewProjection();
     }
 
-    void OrthographicCamera::setAspectRatio(float aspect_ratio) {
+    void OrthographicCamera::setAspectRatio(float aspect_ratio) noexcept {
         this->aspect_ratio = aspect_ratio;
         recalculateViewProjection();
     }
 
-    void OrthographicCamera::setZoomLevel(float zoom_level) {
+    void OrthographicCamera::setZoomLevel(float zoom_level) noexcept {
         this->zoom_level = zoom_level;
         recalculateViewProjection();
     }
 
-    void OrthographicCamera::setRotation(glm::vec3 rotation) {
+    void OrthographicCamera::setRotation(glm::vec3 rotation) noexcept {
         this->rotation = rotation;
         recalculateViewProjection();
     }
 
-    void OrthographicCamera::move(glm::vec2 delta_pos) {
+    void OrthographicCamera::move(glm::vec2 delta_pos) noexcept {
         this->position += glm::vec3(delta_pos.x, delta_pos.y, 0.0f);
         recalculateViewProjection();
     }
 
-    void OrthographicCamera::move(glm::vec3 delta_pos) {
+    void OrthographicCamera::move(glm::vec3 delta_pos) noexcept {
         this->position += delta_pos;
         recalculateViewProjection();
     }
 
-    void OrthographicCamera::increaseZoom(float increment) {
+    void OrthographicCamera::increaseZoom(float increment) noexcept {
         this->zoom_level += increment;
         recalculateViewProjection();
     }
 
-    void OrthographicCamera::decreaseZoom(float decrement) {
+    void OrthographicCamera::decreaseZoom(float decrement) noexcept {
         this->zoom_level -= decrement;
         recalculateViewProjection();
     }
 
-    void OrthographicCamera::recalculateViewProjection() {
+    void OrthographicCamera::recalculateViewProjection() noexcept {
         CMT_PROFILE_FUNCTION();
 
         float width = base_width * glm::pow(2.0f, zoom_level);
@@ -57,7 +57,7 @@ namespace comet {
         glm::mat4 view = (rotation == glm::vec3(0.0f, 0.0f, 0.0f)) ? glm::mat4(1.0f) : 
             glm::rotate(glm::mat4(1.0f), rotation.x, { 1.0f, 0.0f, 0.0f }) * 
             glm::rotate(glm::mat4(1.0f), rotation.y, { 0.0f, 1.0f, 0.0f }) * 
-            glm::rotate(glm::mat4(1.0f), rotation.x, { 1.0f, 0.0f, 0.0f });
+            glm::rotate(glm::mat4(1.0f), rotation.z, { 1.0f, 0.0f, 0.0f });
         view = glm::translate(view, -position);
         view_projection = projection * view;
     }

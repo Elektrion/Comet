@@ -14,7 +14,7 @@ public:
 		grass_01_texture = comet::Texture2D::create("grass_01.png", true);
 		grass_02_texture = comet::Texture2D::create("grass_02.png", true);
 		for(auto& tile : background)
-			tile = comet::Random::randBool();
+			tile = comet::Math::randBool();
 	}
 
 	virtual void onDetatch() override {

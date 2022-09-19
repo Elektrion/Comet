@@ -8,23 +8,23 @@ namespace comet {
 
 	class MouseEvent : public Event {
 	public:
-		virtual inline uint32_t getCategoryFlags() const override { return input_event | mouse_event; }
+		virtual inline uint32_t getCategoryFlags() const noexcept override { return input_event | mouse_event; }
 	protected:
-		inline MouseEvent() = default;
+		inline MouseEvent() noexcept = default;
 	};
 
 
 	class MouseMovedEvent : public MouseEvent {
 	public:
-		inline MouseMovedEvent(int32_t x, int32_t y) : x(x), y(y) {}
+		inline MouseMovedEvent(int32_t x, int32_t y) noexcept : x(x), y(y) {}
 
-		static inline EventType getStaticType() { return mouse_moved; }
-		virtual inline EventType getType() const override { return mouse_moved; }
-		virtual inline std::string getName() const override { return "mouse_moved"; }
-		virtual inline std::string toString() const override { return getName() + "(x:" + std::to_string(x) + ",y:" + std::to_string(y) + ")"; }
+		static inline EventType getStaticType() noexcept { return mouse_moved; }
+		virtual inline EventType getType() const noexcept override { return mouse_moved; }
+		virtual inline std::string_view getName() const noexcept override { return "mouse_moved"; }
+		virtual inline std::string toString() const override { return std::string(getName()) + "(x:" + std::to_string(x) + ",y:" + std::to_string(y) + ")"; }
 
-		inline int32_t getX() const { return x; }
-		inline int32_t getY() const { return y; }
+		inline int32_t getX() const noexcept { return x; }
+		inline int32_t getY() const noexcept { return y; }
 	private:
 		int32_t x;
 		int32_t y;
@@ -32,15 +32,15 @@ namespace comet {
 
 	class MouseScrolledEvent : public MouseEvent {
 	public:
-		inline MouseScrolledEvent(int32_t x, int32_t y) : x(x), y(y) {}
+		inline MouseScrolledEvent(int32_t x, int32_t y) noexcept : x(x), y(y) {}
 
-		static inline EventType getStaticType() { return mouse_scrolled; }
-		virtual inline EventType getType() const override { return mouse_scrolled; }
-		virtual inline std::string getName() const override { return "mouse_scrolled"; }
-		virtual inline std::string toString() const override { return getName() + "(x:" + std::to_string(x) + ",y:" + std::to_string(y) + ")"; }
+		static inline EventType getStaticType() noexcept { return mouse_scrolled; }
+		virtual inline EventType getType() const noexcept override { return mouse_scrolled; }
+		virtual inline std::string_view getName() const noexcept override { return "mouse_scrolled"; }
+		virtual inline std::string toString() const noexcept override { return std::string(getName()) + "(x:" + std::to_string(x) + ",y:" + std::to_string(y) + ")"; }
 
-		inline int32_t getX() const { return x; }
-		inline int32_t getY() const { return y; }
+		inline int32_t getX() const noexcept { return x; }
+		inline int32_t getY() const noexcept { return y; }
 	private:
 		int32_t x;
 		int32_t y;
@@ -49,12 +49,12 @@ namespace comet {
 
 	class MouseButtonEvent : public MouseEvent {
 	public:
-		virtual inline uint32_t getCategoryFlags() const override { return input_event | mouse_event | mouse_button_event; }
-		virtual inline std::string toString() const override { return getName() + "(code:" + std::to_string(code) + ")"; }
+		virtual inline uint32_t getCategoryFlags() const noexcept override { return input_event | mouse_event | mouse_button_event; }
+		virtual inline std::string toString() const override { return std::string(getName()) + "(code:" + std::to_string(code) + ")"; }
 
-		inline MouseCode getCode() const { return code; }
+		inline MouseCode getCode() const noexcept { return code; }
 	protected:
-		inline MouseButtonEvent(MouseCode code) : code(code) {}
+		inline MouseButtonEvent(MouseCode code) noexcept : code(code) {}
 	private:
 		MouseCode code;
 	};
@@ -62,24 +62,24 @@ namespace comet {
 
 	class MouseButtonPressedEvent : public MouseButtonEvent {
 	public:
-		inline MouseButtonPressedEvent(MouseCode code, bool repeated = false) : MouseButtonEvent(code), repeated(repeated) {}
+		inline MouseButtonPressedEvent(MouseCode code, bool repeated = false) noexcept : MouseButtonEvent(code), repeated(repeated) {}
 
-		static inline EventType getStaticType() { return mouse_button_pressed; }
-		virtual inline EventType getType() const override { return mouse_button_pressed; }
-		virtual inline std::string getName() const override { return "mouse_button_pressed"; }
+		static inline EventType getStaticType() noexcept { return mouse_button_pressed; }
+		virtual inline EventType getType() const noexcept override { return mouse_button_pressed; }
+		virtual inline std::string_view getName() const noexcept override { return "mouse_button_pressed"; }
 
-		inline bool isRepeated() const { return repeated; }
+		inline bool isRepeated() const noexcept { return repeated; }
 	private:
 		bool repeated;
 	};
 
 	class MouseButtonReleasedEvent : public MouseButtonEvent {
 	public:
-		inline MouseButtonReleasedEvent(MouseCode code) : MouseButtonEvent(code) {}
+		inline MouseButtonReleasedEvent(MouseCode code) noexcept : MouseButtonEvent(code) {}
 
-		static inline EventType getStaticType() { return mouse_button_released; }
-		virtual inline EventType getType() const override { return mouse_button_released; }
-		virtual inline std::string getName() const override { return "mouse_button_released"; }
+		static inline EventType getStaticType() noexcept { return mouse_button_released; }
+		virtual inline EventType getType() const noexcept override { return mouse_button_released; }
+		virtual inline std::string_view getName() const noexcept override { return "mouse_button_released"; }
 	};
 
 }

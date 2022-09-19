@@ -6,10 +6,10 @@
 namespace comet {
 
 	static std::map<BufferLayout::Type, GLenum> getGLType = {
-		{ BufferLayout::Type::FLOAT, GL_FLOAT }, 
-		{ BufferLayout::Type::FLOAT2, GL_FLOAT }, 
-		{ BufferLayout::Type::FLOAT3, GL_FLOAT }, 
-		{ BufferLayout::Type::FLOAT4, GL_FLOAT }
+		{ BufferLayout::TYPE_FLOAT, GL_FLOAT }, 
+		{ BufferLayout::TYPE_FLOAT2, GL_FLOAT }, 
+		{ BufferLayout::TYPE_FLOAT3, GL_FLOAT }, 
+		{ BufferLayout::TYPE_FLOAT4, GL_FLOAT }
 	};
 
 	OpenGLVertexBuffer::OpenGLVertexBuffer() : id(0) {
@@ -110,7 +110,7 @@ namespace comet {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
-	uint32_t OpenGLIndexBuffer::getCount() const {
+	uint32_t OpenGLIndexBuffer::getCount() const noexcept {
 		return count;
 	}
 

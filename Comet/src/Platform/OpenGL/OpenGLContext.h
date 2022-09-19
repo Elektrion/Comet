@@ -8,7 +8,7 @@ namespace comet {
 
 	class OpenGLContext : public GraphicsContext {
 	public:
-		OpenGLContext(GLFWwindow* window_handle);
+		inline OpenGLContext(GLFWwindow* window_handle) noexcept : window_handle(window_handle) {}
 
 		virtual void init() override;
 		virtual void swapBuffers() override;

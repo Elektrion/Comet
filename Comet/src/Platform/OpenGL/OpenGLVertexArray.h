@@ -12,10 +12,10 @@ namespace comet {
 		virtual void bind() const override;
 		virtual void unBind() const override;
 
-		virtual void addVertexBuffer(Ref<VertexBuffer> vertex_buffer) override;
-		virtual void setIndexBuffer(Ref<IndexBuffer> index_buffer) override;
+		virtual void addVertexBuffer(const Ref<VertexBuffer>& vertex_buffer) noexcept override;
+		virtual void setIndexBuffer(const Ref<IndexBuffer>& index_buffer) noexcept override;
 
-		virtual Ref<IndexBuffer> getIndexBuffer() const override;
+		virtual inline const Ref<IndexBuffer>& getIndexBuffer() const noexcept override { return index_buffer; }
 	private:
 		uint32_t id;
 		std::vector<Ref<VertexBuffer>> vertex_buffers;

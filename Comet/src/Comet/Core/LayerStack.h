@@ -9,25 +9,30 @@ namespace comet {
 
 	class LayerStack {
 	public:
-		inline LayerStack() : layers(), insertion_index(0) {}
+		inline LayerStack() noexcept : layers(), insertion_index(0) {}
 		~LayerStack();
 
-		void push(Ref<Layer> layer);
-		void pop(Ref<Layer> layer);
-		void pushOverlay(Ref<Layer> layer);
-		void popOverlay(Ref<Layer> layer);
+		inline LayerStack(const LayerStack&) noexcept = delete;
+		inline LayerStack(const LayerStack&&) noexcept = delete;
+		inline LayerStack& operator=(const LayerStack&) noexcept = delete;
+		inline LayerStack& operator=(const LayerStack&&) noexcept = delete;
+
+		void push(const Ref<Layer>& layer) noexcept;
+		void pop(const Ref<Layer>& layer) noexcept;
+		void pushOverlay(const Ref<Layer>& layer) noexcept;
+		void popOverlay(const Ref<Layer>& layer) noexcept;
 
 		void clear();
 
-		inline std::vector<Ref<Layer>>::iterator begin() { return layers.begin(); }
-		inline std::vector<Ref<Layer>>::const_iterator begin() const { return layers.begin(); }
-		inline std::vector<Ref<Layer>>::iterator end() { return layers.end(); }
-		inline std::vector<Ref<Layer>>::const_iterator end() const { return layers.end(); }
+		inline std::vector<Ref<Layer>>::iterator begin() noexcept { return layers.begin(); }
+		inline std::vector<Ref<Layer>>::const_iterator begin() const noexcept { return layers.begin(); }
+		inline std::vector<Ref<Layer>>::iterator end() noexcept { return layers.end(); }
+		inline std::vector<Ref<Layer>>::const_iterator end() const noexcept { return layers.end(); }
 
-		inline std::vector<Ref<Layer>>::reverse_iterator rbegin() { return layers.rbegin(); }
-		inline std::vector<Ref<Layer>>::const_reverse_iterator rbegin() const { return layers.rbegin(); }
-		inline std::vector<Ref<Layer>>::reverse_iterator rend() { return layers.rend(); }
-		inline std::vector<Ref<Layer>>::const_reverse_iterator rend() const { return layers.rend(); }
+		inline std::vector<Ref<Layer>>::reverse_iterator rbegin() noexcept { return layers.rbegin(); }
+		inline std::vector<Ref<Layer>>::const_reverse_iterator rbegin() const noexcept { return layers.rbegin(); }
+		inline std::vector<Ref<Layer>>::reverse_iterator rend() noexcept { return layers.rend(); }
+		inline std::vector<Ref<Layer>>::const_reverse_iterator rend() const noexcept { return layers.rend(); }
 	private:
 		std::vector<Ref<Layer>> layers;
 		size_t insertion_index;

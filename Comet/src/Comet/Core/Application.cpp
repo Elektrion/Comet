@@ -22,7 +22,7 @@ namespace comet {
 
 		instance = this;
 		window = Window::create();
-		window->setEventCallback(std::bind(&Application::onEvent, this, std::placeholders::_1));
+		window->setEventCallback(BIND_MEMBER_EVENT_FUNCTION(Application::onEvent));
 
 		Renderer::init();
 	}
@@ -39,19 +39,12 @@ namespace comet {
 		CMT_CORE_ASSERT(!running, "Application is already running!");
 
 		running = true;
-		auto last_timepoint = std::chrono::high_resolution_clock::now();
 		Timestep dt = 0;
 
 		while(running) {
 			CMT_PROFILE_SCOPE("Application::run - gameloop");
 			
-			{
-				CMT_PROFILE_SCOPE("Application::run - calculate time");
-
-				auto timepoint = std::chrono::high_resolution_clock::now();
-				dt = std::chrono::duration_cast<std::chrono::duration<float, std::chrono::seconds::period>>(timepoint - last_timepoint).count();
-				last_timepoint = timepoint;
-			}
+			dt = Time::mark();
 
 			{
 				CMT_PROFILE_SCOPE("Application::run - update layerstack");
@@ -70,8 +63,8 @@ namespace comet {
 		CMT_PROFILE_FUNCTION();
 
 		EventDispatcher dispatcher(e);
-		dispatcher.dispatch<WindowClosedEvent>(std::bind(&Application::onWindowClosed, this, std::placeholders::_1));
-		dispatcher.dispatch<WindowResizedEvent>(std::bind(&Application::onWindowResized, this, std::placeholders::_1));
+		dispatcher.dispatch<WindowClosedEvent>(BIND_MEMBER_EVENT_FUNCTION(Application::onWindowClosed));
+		dispatcher.dispatch<WindowResizedEvent>(BIND_MEMBER_EVENT_FUNCTION(Application::onWindowResized));
 
 		for(auto layer = layerstack.rbegin(); layer != layerstack.rend(); layer++) {
 			if(!e.isHandled())

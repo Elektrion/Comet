@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Comet/Core/Core.h"
+#include <stdint.h>
 
 namespace comet {
 

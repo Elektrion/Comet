@@ -33,16 +33,12 @@ namespace comet {
 		glBindVertexArray(0);
 	}
 
-	void OpenGLVertexArray::addVertexBuffer(Ref<VertexBuffer> vertex_buffer) {
+	void OpenGLVertexArray::addVertexBuffer(const Ref<VertexBuffer>& vertex_buffer) noexcept {
 		vertex_buffers.push_back(vertex_buffer);
 	}
 
-	void OpenGLVertexArray::setIndexBuffer(Ref<IndexBuffer> index_buffer) {
+	void OpenGLVertexArray::setIndexBuffer(const Ref<IndexBuffer>& index_buffer) noexcept {
 		this->index_buffer = index_buffer;
-	}
-
-	Ref<IndexBuffer> OpenGLVertexArray::getIndexBuffer() const {
-		return index_buffer;
 	}
 
 }

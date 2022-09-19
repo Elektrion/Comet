@@ -38,7 +38,7 @@ namespace comet {
 				break;
 		}
 #endif
-		return Ref<OpenGLVertexArray>(nullptr);
+		return nullptr;
     }
 
 }

@@ -39,11 +39,15 @@ namespace comet {
 				break;
 		}
 #endif
-		return Ref<OpenGLShader>(nullptr);
+		return nullptr;
 	}
 
 	Ref<Shader> Shader::createFromFile(const std::string& vertex_filename, const std::string& fragment_filename) {
-		return create(Assets::loadFile("shaders/" + vertex_filename), Assets::loadFile("shaders/" + fragment_filename));
+		auto vertex_source = Assets::loadFile("shaders/" + vertex_filename);
+		auto fragment_source = Assets::loadFile("shaders/" + fragment_filename);
+		return create(
+			vertex_source.value_or("#version 410 core\n\nlayout(location = 0) in vec3 a_position;\n\nvoid main() { gl_Position = a_position; }\n"),
+			fragment_source.value_or("#version 410 core\n\nout vec4 color;\n\nvoid main() { color = vec4(1.0f, 1.0f, 1.0f, 1.0f); }\n"));
 	}
 
 }

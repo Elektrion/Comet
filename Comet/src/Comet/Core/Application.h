@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Comet/Core/Core.h"
 #include "Comet/Core/LayerStack.h"
 #include "Comet/Core/Window.h"
 
@@ -13,16 +14,21 @@ namespace comet {
 		Application();
 		virtual ~Application();
 
-		inline const Scope<Window>& getWindow() const { return window; }
+		inline Application(const Application&) noexcept = delete;
+		inline Application(const Application&&) noexcept = delete;
+		inline Application& operator=(const Application&) noexcept = delete;
+		inline Application& operator=(const Application&&) noexcept = delete;
 
-		inline void pushLayer(Ref<Layer> layer) { layerstack.push(layer); }
-		inline void pushOverlay(Ref<Layer> layer) { layerstack.pushOverlay(layer); }
-		inline void popLayer(Ref<Layer> layer) { layerstack.pop(layer); }
-		inline void popOverlay(Ref<Layer> layer) { layerstack.popOverlay(layer); }
+		inline const Scope<Window>& getWindow() const noexcept { return window; }
+
+		inline void pushLayer(const Ref<Layer>& layer) noexcept { layerstack.push(layer); }
+		inline void pushOverlay(const Ref<Layer>& layer) noexcept { layerstack.pushOverlay(layer); }
+		inline void popLayer(const Ref<Layer>& layer) noexcept { layerstack.pop(layer); }
+		inline void popOverlay(const Ref<Layer>& layer) noexcept { layerstack.popOverlay(layer); }
 
 		void run();
 	public:
-		static inline Application* get() { return instance; }
+		static inline Application* get() noexcept { return instance; }
 	private:
 		void onEvent(Event& e);
 		bool onWindowClosed(WindowClosedEvent& e);

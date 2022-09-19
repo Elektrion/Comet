@@ -5,14 +5,11 @@
 
 namespace comet {
 
-    std::string Assets::loadFile(const std::string& filename) {
+    std::optional<std::string> Assets::loadFile(const std::string& filename) {
         CMT_PROFILE_FUNCTION();
 
-        std::ifstream in(getAssetPath(filename));
-        if(!in) {
-            CMT_CORE_ERROR("Failed to open assets file \"{0}\".", getAssetPath(filename));
-            return {};
-        }
+        std::ifstream in(getAssetPath(filename), std::ios::binary);
+        if(!in) return {};
 
         std::string buffer;
         in.seekg(0, std::ios::end);

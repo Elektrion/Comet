@@ -1,16 +1,21 @@
 #pragma once
 
-#include "glm/glm.hpp"
-
-#include "Comet/Core/Core.h"
+#include "Comet/Core/Math.h"
 
 namespace comet {
 
 	class Camera {
 	public:
-		virtual ~Camera() = default;
+		virtual inline ~Camera() noexcept = default;
 
-		virtual glm::mat4 getViewProjection() const = 0;
+		inline Camera(const Camera&) noexcept = delete;
+		inline Camera(const Camera&&) noexcept = delete;
+		inline Camera& operator=(const Camera&) noexcept = delete;
+		inline Camera& operator=(const Camera&&) noexcept = delete;
+
+		virtual glm::mat4 getViewProjection() const noexcept = 0;
+	protected:
+		inline Camera() noexcept = default;
 	};
 
 }
