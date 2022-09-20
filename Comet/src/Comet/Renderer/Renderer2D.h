@@ -31,6 +31,9 @@ namespace comet {
 		static void drawQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& texture, const glm::vec4& color = { 1.0f, 1.0f, 1.0f, 1.0f });
 		static void drawQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, const glm::vec4& color = { 1.0f, 1.0f, 1.0f, 1.0f });
 		static void drawQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, const glm::vec4& color = { 1.0f, 1.0f, 1.0f, 1.0f });
+
+		static void drawLine(const glm::vec2& begin, const glm::vec2& end, const glm::vec4& color, float width = 0.01f);
+		static void drawLine(const glm::vec3& begin, const glm::vec3& end, const glm::vec4& color, float width = 0.01f);
 	private:
 		struct Vertex {
 			glm::vec3 position;

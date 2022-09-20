@@ -37,6 +37,26 @@ namespace comet {
 		template<typename T> static inline T cos(const T& x) {
 			return std::cos(x);
 		}
+
+		template<typename T> static inline T tan(const T& x) {
+			return std::tan(x);
+		}
+
+		template<typename T> static inline T arcsin(const T& x) {
+			return std::asin(x);
+		}
+
+		template<typename T> static inline T arccos(const T& x) {
+			return std::acos(x);
+		}
+
+		template<typename T> static inline T arctan(const T& x) {
+			return std::atan(x);
+		}
+
+		template<typename T> static inline T arctan(const T& y, const T& x) {
+			return std::atan2(y, x);
+		}
 	};
 
 }

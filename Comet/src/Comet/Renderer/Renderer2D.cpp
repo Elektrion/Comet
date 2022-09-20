@@ -10,12 +10,12 @@ namespace comet {
 	uint32_t Renderer2D::max_vertices = 0;
 	uint32_t Renderer2D::max_quads = 0;
 	uint32_t Renderer2D::max_textures = 0;
-	Ref<VertexArray> Renderer2D::quad_vertex_array = Ref<VertexArray>(nullptr);
-	Ref<VertexBuffer> Renderer2D::quad_vertex_buffer = Ref<VertexBuffer>(nullptr);
+	Ref<VertexArray> Renderer2D::quad_vertex_array = nullptr;
+	Ref<VertexBuffer> Renderer2D::quad_vertex_buffer = nullptr;
 	Renderer2D::Vertex* Renderer2D::quad_vertices = nullptr;
 	uint32_t Renderer2D::quad_index = 0;
-	Ref<Shader> Renderer2D::quad_shader = Ref<Shader>(nullptr);
-	Ref<Texture2D> Renderer2D::white_texture = Ref<Texture2D>(nullptr);
+	Ref<Shader> Renderer2D::quad_shader = nullptr;
+	Ref<Texture2D> Renderer2D::white_texture = nullptr;
 	std::vector<Ref<Texture2D>> Renderer2D::textures = {};
 
 	void Renderer2D::init() {
@@ -33,7 +33,7 @@ namespace comet {
 		quad_vertex_buffer->setLayout({
 			{ BufferLayout::TYPE_FLOAT3, "a_position" }, 
 			{ BufferLayout::TYPE_FLOAT4, "a_color" }, 
-			{ BufferLayout::TYPE_FLOAT2, "a_texture_coords" },
+			{ BufferLayout::TYPE_FLOAT2, "a_texture_coords" }, 
 			{ BufferLayout::TYPE_FLOAT, "a_texture_index" }
 		});
 		quad_vertex_array->addVertexBuffer(quad_vertex_buffer);
@@ -139,6 +139,17 @@ namespace comet {
 
 	void Renderer2D::drawQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, const glm::vec4& color) {
 		putQuad(getPositions(position, size, rotation), color, texture->getTextureCoords(), getTextureIndex(texture));
+	}
+
+
+	void Renderer2D::drawLine(const glm::vec2& begin, const glm::vec2& end, const glm::vec4& color, float width) {
+		drawLine({ begin.x, begin.y, 0.0f }, { end.x, end.y, 0.0f }, color, width);
+	}
+
+	void Renderer2D::drawLine(const glm::vec3& begin, const glm::vec3& end, const glm::vec4& color, float width) {
+		glm::vec3 middle = (begin + end) * 0.5f;
+		float size = glm::length(glm::vec2(end) - glm::vec2(begin));
+		drawQuad(middle, { size, width }, Math::arctan(end.y - begin.y, end.x - begin.x), color);
 	}
 
 

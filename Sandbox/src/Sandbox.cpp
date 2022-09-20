@@ -40,6 +40,8 @@ public:
 		comet::Renderer2D::drawQuad({ -5.0f,  5.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 0.0f, 1.0f, 1.0f });
 		comet::Renderer2D::drawQuad({  0.0f,  0.0f, 0.0f }, { 1.0f, 1.0f }, water_texture);
 		comet::Renderer2D::drawQuad({ 1.0f,  1.0f, 0.0f }, { 1.0f, 1.0f }, glm::pi<float>() * 0.25f, comet::SubTexture2D::create(water_texture, 0, 0, 8, 8));
+		comet::Renderer2D::drawLine({ 0.0f, 0.0f, 0.1f }, { 1.0f, 1.0f, 0.1f }, { 1.0f, 0.0f, 0.0f, 1.0f });
+		comet::Renderer2D::drawLine({ 0.0f, 0.0f, 0.1f }, { 1.0f, -0.5f, 0.1f }, { 0.0f, 1.0f, 0.0f, 1.0f });
 		comet::Renderer2D::endScene();
 	}
 
