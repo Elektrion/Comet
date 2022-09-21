@@ -39,10 +39,16 @@ public:
 		comet::Renderer2D::drawQuad({  5.0f,  5.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f, 1.0f, 1.0f });
 		comet::Renderer2D::drawQuad({ -5.0f,  5.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 0.0f, 1.0f, 1.0f });
 		comet::Renderer2D::drawQuad({  0.0f,  0.0f, 0.0f }, { 1.0f, 1.0f }, water_texture);
-		comet::Renderer2D::drawQuad({ 1.0f,  1.0f, 0.0f }, { 1.0f, 1.0f }, glm::pi<float>() * 0.25f, comet::SubTexture2D::create(water_texture, 0, 0, 8, 8));
+		comet::Renderer2D::drawQuad({ 1.0f,  1.0f, 0.0f }, { 1.0f, 1.0f }, rotation, comet::SubTexture2D::create(water_texture, 0, 0, 8, 8));
 		comet::Renderer2D::drawLine({ 0.0f, 0.0f, 0.1f }, { 1.0f, 1.0f, 0.1f }, { 1.0f, 0.0f, 0.0f, 1.0f });
 		comet::Renderer2D::drawLine({ 0.0f, 0.0f, 0.1f }, { 1.0f, -0.5f, 0.1f }, { 0.0f, 1.0f, 0.0f, 1.0f });
 		comet::Renderer2D::endScene();
+	}
+
+	virtual void onImGuiRender() override {
+		ImGui::Begin("Sandbox Settings");
+		ImGui::SliderFloat("Rotation", &rotation, 0.0f, 2.0f * glm::pi<float>());
+		ImGui::End();
 	}
 
 	virtual void onEvent(comet::Event& e) override {
@@ -54,6 +60,7 @@ private:
 	comet::Ref<comet::Texture2D> grass_01_texture;
 	comet::Ref<comet::Texture2D> grass_02_texture;
 	std::array<bool, background_size_half * 2 * background_size_half * 2> background;
+	float rotation = 0.25f;
 };
 
 

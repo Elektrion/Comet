@@ -29,6 +29,9 @@ namespace comet {
 		virtual inline void* getNativeWindow() const noexcept override { return window; }
 		virtual inline GraphicsContext& getContext() noexcept override { return *context; }
 
+		virtual void beginImGui() override;
+		virtual void endImGui() override;
+
 		virtual void onUpdate(Timestep dt) override;
 		virtual void setEventCallback(EventCallbackFn callback) override;
 	private:

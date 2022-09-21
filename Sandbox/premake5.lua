@@ -15,7 +15,8 @@ project "Sandbox"
 	includedirs {
 		"src", 
 		"%{wks.location}/Comet/src", 
-		"%{includedir.glm}"
+		"%{includedir.glm}", 
+		"%{includedir.imgui}"
 	}
 
 	links {

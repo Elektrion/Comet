@@ -1,3 +1,7 @@
 [submodule "glfw"]
 	path = Comet/vendor/glfw
 	url = https://github.com/Elektrion/glfw.git
+[submodule "imgui"]
+	path = Comet/vendor/imgui
+	url = https://github.com/Elektrion/imgui.git
+	branch = docking

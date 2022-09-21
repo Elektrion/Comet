@@ -33,6 +33,10 @@ namespace comet {
 		instance = nullptr;
 	}
 
+	void Application::close() {
+		running = false;
+	}
+
 	void Application::run() {
 		CMT_PROFILE_FUNCTION();
 
@@ -45,6 +49,7 @@ namespace comet {
 			CMT_PROFILE_SCOPE("Application::run - gameloop");
 			
 			dt = Time::mark();
+			window->beginImGui();
 
 			{
 				CMT_PROFILE_SCOPE("Application::run - update layerstack");
@@ -53,6 +58,14 @@ namespace comet {
 					layer->onUpdate(dt);
 			}
 
+			{
+				CMT_PROFILE_SCOPE("Application::run - imgui render");
+
+				for(auto layer : layerstack)
+					layer->onImGuiRender();
+			}
+
+			window->endImGui();
 			window->onUpdate(dt);
 		}
 

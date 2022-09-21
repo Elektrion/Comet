@@ -1,6 +1,12 @@
 #include "cmt_pch.h"
 #include "MacOSWindow.h"
 
+#include "imgui.h"
+#include "backends/imgui_impl_glfw.h"
+#include "backends/imgui_impl_opengl3.h"
+
+#include "Comet/Core/Application.h"
+
 #include "Comet/Event/KeyEvent.h"
 #include "Comet/Event/MouseEvent.h"
 #include "Comet/Event/WindowEvent.h"
@@ -44,6 +50,62 @@ namespace comet {
 			glfwMaximizeWindow(window);
 		else
 			glfwRestoreWindow(window);
+	}
+
+	void MacOSWindow::beginImGui() {
+		CMT_PROFILE_FUNCTION();
+
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+
+		// setup docspace
+		ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+		const ImGuiViewport* viewport = ImGui::GetMainViewport();
+		ImGui::SetNextWindowPos(viewport->WorkPos);
+		ImGui::SetNextWindowSize(viewport->WorkSize);
+		ImGui::SetNextWindowViewport(viewport->ID);
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+		window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+		window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+		bool open = true;
+		ImGui::Begin("DockSpace Demo", &open, window_flags);
+		ImGui::PopStyleVar();
+		ImGui::PopStyleVar(2);
+
+		ImGuiID dockspace_id = ImGui::GetID("Comet");
+		ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_None);
+
+		if(ImGui::BeginMenuBar()) {
+			if(ImGui::BeginMenu("File")) {
+				if(ImGui::MenuItem("Close", nullptr))
+					Application::get()->close();
+
+				ImGui::EndMenu();
+			}
+
+			ImGui::EndMenuBar();
+		}
+	}
+
+	void MacOSWindow::endImGui() {
+		CMT_PROFILE_FUNCTION();
+
+		// end dockspace
+		ImGui::End();
+
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+		if(ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+			GLFWwindow* backup_current_context = glfwGetCurrentContext();
+			ImGui::UpdatePlatformWindows();
+			ImGui::RenderPlatformWindowsDefault();
+			glfwMakeContextCurrent(backup_current_context);
+		}
 	}
 
 	void MacOSWindow::onUpdate(Timestep dt) {
@@ -199,10 +261,42 @@ namespace comet {
 				data->event_callback(e);
 			});
 		}
+
+		{
+			CMT_PROFILE_SCOPE("MacOSWindow::init - init imgui");
+
+			// imgui setup
+
+			IMGUI_CHECKVERSION();
+			ImGui::CreateContext();
+			ImGuiIO& io = ImGui::GetIO();
+			io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+			io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+			io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+
+			ImGui::StyleColorsDark();
+
+			ImGuiStyle& style = ImGui::GetStyle();
+			if(io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+				style.WindowRounding = 0.0f;
+				style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+			}
+
+			ImGui_ImplGlfw_InitForOpenGL(window, true);
+			ImGui_ImplOpenGL3_Init("#version 150 core");
+		}
 	}
 
 	void MacOSWindow::shutdown() {
 		CMT_PROFILE_FUNCTION();
+
+		{
+			CMT_PROFILE_SCOPE("MacOSWindow::shutdown - shutdown imgui");
+
+			ImGui_ImplOpenGL3_Shutdown();
+			ImGui_ImplGlfw_Shutdown();
+			ImGui::DestroyContext();
+		}
 
 		{
 			CMT_PROFILE_SCOPE("MacOSWindow::shutdown - destroy glfw window");

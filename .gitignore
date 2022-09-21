@@ -16,3 +16,6 @@ bin-int
 **/profile_startup.json
 **/profile_gameloop.json
 **/profile_shutdown.json
+
+#ingui files
+**/imgui.ini

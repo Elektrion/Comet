@@ -20,6 +20,7 @@ namespace comet {
 		virtual void onDetatch() {}
 
 		virtual void onUpdate(Timestep dt) {}
+		virtual void onImGuiRender() {}
 		virtual void onEvent(Event& e) {}
 	};
 

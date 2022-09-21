@@ -21,13 +21,15 @@ project "Comet"
 		"%{includedir.glfw}", 
 		"%{includedir.glad}", 
 		"%{includedir.glm}", 
-		"%{includedir.stb}"
+		"%{includedir.stb}", 
+		"%{includedir.imgui}"
 	}
 
 	links {
 		"glfw", 
 		"glad", 
-		"stb"
+		"stb", 
+		"imgui"
 	}
 
 

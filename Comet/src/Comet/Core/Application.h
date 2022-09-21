@@ -26,6 +26,7 @@ namespace comet {
 		inline void popLayer(const Ref<Layer>& layer) noexcept { layerstack.pop(layer); }
 		inline void popOverlay(const Ref<Layer>& layer) noexcept { layerstack.popOverlay(layer); }
 
+		void close();
 		void run();
 	public:
 		static inline Application* get() noexcept { return instance; }

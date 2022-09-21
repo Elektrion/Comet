@@ -44,6 +44,9 @@ namespace comet {
 		virtual void* getNativeWindow() const noexcept = 0;
 		virtual GraphicsContext& getContext() noexcept = 0;
 
+		virtual void beginImGui() = 0;
+		virtual void endImGui() = 0;
+
 		virtual void onUpdate(Timestep dt) = 0;
 		virtual void setEventCallback(EventCallbackFn callback) = 0;
 	public:
