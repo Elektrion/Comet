@@ -25,6 +25,9 @@ namespace comet {
 		CMT_PROFILE_FUNCTION();
 
 		glBindVertexArray(id);
+		for(const auto& vertex_buffer : vertex_buffers)
+			vertex_buffer->bind();
+		if(index_buffer) index_buffer->bind();
 	}
 
 	void OpenGLVertexArray::unBind() const {

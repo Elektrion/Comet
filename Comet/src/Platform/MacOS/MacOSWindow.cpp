@@ -71,8 +71,7 @@ namespace comet {
 		window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-		bool open = true;
-		ImGui::Begin("DockSpace Demo", &open, window_flags);
+		ImGui::Begin("DockSpace Demo", nullptr, window_flags);
 		ImGui::PopStyleVar();
 		ImGui::PopStyleVar(2);
 

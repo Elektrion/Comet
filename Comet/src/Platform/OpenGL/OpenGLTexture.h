@@ -14,6 +14,8 @@ namespace comet {
 		virtual void bind(uint32_t slot = 0) override;
 		virtual void unBind(uint32_t slot = 0) override;
 
+		virtual inline uint32_t getNativeId() const noexcept { return id; }
+
 		virtual inline uint32_t getWidth() const noexcept override { return width; }
 		virtual inline uint32_t getHeight() const noexcept override { return height; }
 

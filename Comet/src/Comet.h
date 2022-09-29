@@ -20,6 +20,7 @@
 #include "Comet/Event/WindowEvent.h"
 
 #include "Comet/Renderer/Buffer.h"
+#include "Comet/Renderer/FrameBuffer.h"
 #include "Comet/Renderer/RenderCommand.h"
 #include "Comet/Renderer/Renderer.h"
 #include "Comet/Renderer/Renderer2D.h"

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <array>
+
 #include "Comet/Core/Core.h"
 #include "Comet/Core/Math.h"
 
@@ -16,6 +18,8 @@ namespace comet {
 
 		virtual void bind(uint32_t slot = 0) = 0;
 		virtual void unBind(uint32_t slot = 0) = 0;
+
+		virtual uint32_t getNativeId() const noexcept = 0;
 	protected:
 		inline Texture() noexcept = default;
 	};
@@ -41,6 +45,8 @@ namespace comet {
 
 		virtual inline void bind(uint32_t slot = 0) { parent->bind(slot); }
 		virtual inline void unBind(uint32_t slot = 0) { parent->unBind(slot); }
+
+		virtual inline uint32_t getNativeId() const noexcept { return parent->getNativeId(); }
 
 		inline const Ref<Texture2D>& getParent() const noexcept { return parent; }
 

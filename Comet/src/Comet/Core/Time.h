@@ -29,6 +29,12 @@ namespace comet {
 		template<typename T = std::ratio<1i64, 1i64>> static inline Timestep peek() noexcept(noexcept(Time::mark<T>)) requires(std::_Is_ratio_v<T>) {
 			return mark<T>(true);
 		}
+
+		template<typename T = std::ratio<1i64, 1i64>> static inline float currentTime() 
+			noexcept(noexcept(std::chrono::duration_cast<std::chrono::duration<float, T>>(std::declval<const std::chrono::high_resolution_clock::time_point::duration&>()))) 
+			requires(std::_Is_ratio_v<T>) {
+			return std::chrono::duration_cast<std::chrono::duration<float, T>>(std::chrono::high_resolution_clock::now().time_since_epoch()).count();
+		}
 	};
 
 }
