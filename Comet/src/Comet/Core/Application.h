@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Comet/Core/Core.h"
+#include "Comet/Core/ImGuiLayer.h"
 #include "Comet/Core/LayerStack.h"
 #include "Comet/Core/Window.h"
 
@@ -28,6 +29,9 @@ namespace comet {
 
 		void close();
 		void run();
+
+		void enableDockspace();
+		void postEvent(const Ref<Event>& e);
 	public:
 		static inline Application* get() noexcept { return instance; }
 	private:
@@ -38,6 +42,10 @@ namespace comet {
 		bool running;
 		Scope<Window> window;
 		LayerStack layerstack;
+		Ref<ImGuiLayer> imgui_layer;
+		bool enable_dockspace;
+		std::array<uint32_t, 4> viewport;
+		std::vector<Ref<Event>> event_queue;
 	private:
 		static Application* instance;
 	};

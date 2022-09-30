@@ -11,6 +11,8 @@ namespace comet {
 		virtual inline uint32_t getCategoryFlags() const noexcept override { return input_event | mouse_event; }
 	protected:
 		inline MouseEvent() noexcept = default;
+	private:
+		friend class Application;
 	};
 
 
@@ -28,6 +30,8 @@ namespace comet {
 	private:
 		int32_t x;
 		int32_t y;
+
+		friend class Application;
 	};
 
 	class MouseScrolledEvent : public MouseEvent {
@@ -44,6 +48,8 @@ namespace comet {
 	private:
 		int32_t x;
 		int32_t y;
+
+		friend class Application;
 	};
 
 
@@ -57,6 +63,8 @@ namespace comet {
 		inline MouseButtonEvent(MouseCode code) noexcept : code(code) {}
 	private:
 		MouseCode code;
+
+		friend class Application;
 	};
 
 
@@ -71,6 +79,8 @@ namespace comet {
 		inline bool isRepeated() const noexcept { return repeated; }
 	private:
 		bool repeated;
+
+		friend class Application;
 	};
 
 	class MouseButtonReleasedEvent : public MouseButtonEvent {
@@ -80,6 +90,8 @@ namespace comet {
 		static inline EventType getStaticType() noexcept { return mouse_button_released; }
 		virtual inline EventType getType() const noexcept override { return mouse_button_released; }
 		virtual inline std::string_view getName() const noexcept override { return "mouse_button_released"; }
+	private:
+		friend class Application;
 	};
 
 }

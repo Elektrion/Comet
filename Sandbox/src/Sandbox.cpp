@@ -15,8 +15,6 @@ public:
 		grass_02_texture = comet::Texture2D::create("grass_02.png", true);
 		for(auto& tile : background)
 			tile = comet::Math::randBool();
-
-		frame_buffer = comet::FrameBuffer::create(1280, 720);
 	}
 
 	virtual void onDetatch() override {
@@ -24,7 +22,6 @@ public:
 	}
 
 	virtual void onUpdate(comet::Timestep dt) override {
-		frame_buffer->bind();
 		comet::RenderCommand::setClearColor(0.3f, 0.1f, 0.7f);
 		comet::RenderCommand::clear();
 
@@ -46,18 +43,9 @@ public:
 		comet::Renderer2D::drawLine({ 0.0f, 0.0f, 0.1f }, { 1.0f, 1.0f, 0.1f }, { 1.0f, 0.0f, 0.0f, 1.0f });
 		comet::Renderer2D::drawLine({ 0.0f, 0.0f, 0.1f }, { 1.0f, -0.5f, 0.1f }, { 0.0f, 1.0f, 0.0f, 1.0f });
 		comet::Renderer2D::endScene();
-		frame_buffer->unBind();
 	}
 
 	virtual void onImGuiRender() override {
-		ImGui::SetNextWindowDockID(ImGui::GetID("Comet"), ImGuiCond_FirstUseEver);
-		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0.0f, 0.0f });
-		ImGui::Begin("Main Viewport");
-		ImGui::PopStyleVar();
-
-		ImGui::Image(reinterpret_cast<void*>(frame_buffer->getColorAttatchment()->getNativeId()), { 640.0f, 360.0f }, { 0.0f, 1.0f }, { 1.0f, 0.0f });
-		ImGui::End();
-
 		ImGui::Begin("Sandbox Settings");
 		ImGui::SliderFloat("Rotation", &rotation, 0.0f, 2.0f * glm::pi<float>());
 		ImGui::End();
@@ -73,13 +61,13 @@ private:
 	comet::Ref<comet::Texture2D> grass_02_texture;
 	std::array<bool, background_size_half * 2 * background_size_half * 2> background;
 	float rotation = 0.25f;
-	comet::Ref<comet::FrameBuffer> frame_buffer;
 };
 
 
 class SandboxApplication : public comet::Application {
 public:
 	SandboxApplication() {
+		enableDockspace();
 		pushLayer(comet::createRef<SandboxLayer>());
 	}
 };

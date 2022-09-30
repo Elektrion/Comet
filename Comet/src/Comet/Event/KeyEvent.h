@@ -16,6 +16,8 @@ namespace comet {
 		inline KeyEvent(KeyCode code) noexcept : code(code) {}
 	private:
 		KeyCode code;
+
+		friend class Application;
 	};
 
 
@@ -30,6 +32,8 @@ namespace comet {
 		inline bool isRepeated() const noexcept { return repeated; }
 	private:
 		bool repeated;
+
+		friend class Application;
 	};
 
 	class KeyReleasedEvent : public KeyEvent {
@@ -39,6 +43,8 @@ namespace comet {
 		static inline EventType getStaticType() noexcept { return key_released; }
 		virtual inline EventType getType() const noexcept override { return key_released; }
 		virtual inline std::string_view getName() const noexcept override { return "key_released"; }
+	private:
+		friend class Application;
 	};
 
 	class KeyTypedEvent : public KeyEvent {
@@ -50,6 +56,8 @@ namespace comet {
 		virtual inline std::string_view getName() const noexcept override { return "key_typed"; }
 
 		inline uint32_t getUnicodeCharacter() const noexcept { return getCode(); }
+	private:
+		friend class Application;
 	};
 
 }

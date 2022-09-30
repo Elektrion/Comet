@@ -43,6 +43,8 @@ namespace comet {
 		inline Event() noexcept : handled(false) {}
 	private:
 		bool handled;
+
+		friend class Application;
 	};
 
 

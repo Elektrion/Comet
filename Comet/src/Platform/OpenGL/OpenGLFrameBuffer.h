@@ -35,6 +35,9 @@ namespace comet {
 		virtual void bind() override;
 		virtual void unBind() override;
 
+		virtual inline uint32_t getWidth() const noexcept override { return color_attatchment->getWidth(); }
+		virtual inline uint32_t getHeight() const noexcept override { return color_attatchment->getHeight(); }
+
 		virtual void resize(uint32_t width, uint32_t height) override;
 
 		virtual Ref<Texture2D> getColorAttatchment() const noexcept;

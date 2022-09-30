@@ -9,6 +9,8 @@ namespace comet {
 		virtual inline uint32_t getCategoryFlags() const noexcept override { return window_event; }
 	protected:
 		inline WindowEvent() noexcept = default;
+	private:
+		friend class Application;
 	};
 
 
@@ -19,6 +21,8 @@ namespace comet {
 		static inline EventType getStaticType() noexcept { return window_closed; }
 		virtual inline EventType getType() const noexcept override { return window_closed; }
 		virtual inline std::string_view getName() const noexcept override { return "window_closed"; }
+	private:
+		friend class Application;
 	};
 
 	class WindowResizedEvent : public WindowEvent {
@@ -35,6 +39,8 @@ namespace comet {
 	private:
 		uint32_t width;
 		uint32_t height;
+
+		friend class Application;
 	};
 
 	class WindowMinimizedEvent : public WindowEvent {
@@ -49,6 +55,8 @@ namespace comet {
 		inline bool isMinimized() const noexcept { return minimized; }
 	private:
 		bool minimized;
+
+		friend class Application;
 	};
 
 	class WindowMaximizedEvent : public WindowEvent {
@@ -63,6 +71,8 @@ namespace comet {
 		inline bool isMaximized() const noexcept { return maximized; }
 	private:
 		bool maximized;
+
+		friend class Application;
 	};
 
 }

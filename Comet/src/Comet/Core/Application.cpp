@@ -10,7 +10,7 @@ namespace comet {
 
 	Application* Application::instance = nullptr;
 
-	Application::Application() : running(false), window(nullptr), layerstack() {
+	Application::Application() : running(false), enable_dockspace(false), window(nullptr), layerstack(), imgui_layer(createRef<ImGuiLayer>()) {
 		CMT_PROFILE_FUNCTION();
 
 		if(instance) {
@@ -23,6 +23,8 @@ namespace comet {
 		instance = this;
 		window = Window::create();
 		window->setEventCallback(BIND_MEMBER_EVENT_FUNCTION(Application::onEvent));
+
+		pushOverlay(imgui_layer);
 
 		Renderer::init();
 	}
@@ -50,6 +52,15 @@ namespace comet {
 			
 			dt = Time::mark();
 			window->beginImGui();
+			viewport = imgui_layer->beginImGui();
+
+			{
+				CMT_PROFILE_SCOPE("Application::run - process event_queue");
+
+				for(const auto& event : event_queue)
+					onEvent(*event);
+				event_queue.clear();
+			}
 
 			{
 				CMT_PROFILE_SCOPE("Application::run - update layerstack");
@@ -65,11 +76,21 @@ namespace comet {
 					layer->onImGuiRender();
 			}
 
+			imgui_layer->endImGui();
 			window->endImGui();
 			window->onUpdate(dt);
 		}
 
 		running = false;
+	}
+
+	void Application::enableDockspace() {
+		enable_dockspace = true;
+		imgui_layer->enableDockspace();
+	}
+
+	void Application::postEvent(const Ref<Event>& e) {
+		event_queue.push_back(e);
 	}
 
 	void Application::onEvent(Event& e) {
@@ -79,10 +100,8 @@ namespace comet {
 		dispatcher.dispatch<WindowClosedEvent>(BIND_MEMBER_EVENT_FUNCTION(Application::onWindowClosed));
 		dispatcher.dispatch<WindowResizedEvent>(BIND_MEMBER_EVENT_FUNCTION(Application::onWindowResized));
 
-		for(auto layer = layerstack.rbegin(); layer != layerstack.rend(); layer++) {
-			if(!e.isHandled())
-				(*layer)->onEvent(e);
-		}
+		for(auto layer = layerstack.rbegin(); layer != layerstack.rend() && !e.isHandled(); layer++)
+			(*layer)->onEvent(e);
 	}
 
 	bool Application::onWindowClosed(WindowClosedEvent& e) {
@@ -91,7 +110,11 @@ namespace comet {
 	}
 
 	bool Application::onWindowResized(WindowResizedEvent& e) {
-		window->getContext().setViewPort(0, 0, e.getWidth(), e.getHeight());
+		if(enable_dockspace) {
+			e.width = viewport[2];
+			e.height = viewport[3];
+		}
+		else window->getContext().setViewPort(0, 0, e.getWidth(), e.getHeight());
 		return false;
 	}
 

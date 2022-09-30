@@ -50,6 +50,7 @@ namespace comet {
 		CMT_PROFILE_FUNCTION();
 
 		glBindFramebuffer(GL_FRAMEBUFFER, id);
+		glViewport(0, 0, color_attatchment->getWidth(), color_attatchment->getHeight());
 	}
 
 	void OpenGLFrameBuffer::unBind() {
@@ -85,14 +86,10 @@ namespace comet {
 
 
 		glCreateTextures(GL_TEXTURE_2D, 1, &depth_buffer_id);
-
-		glTextureParameteri(depth_buffer_id, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTextureParameteri(depth_buffer_id, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTextureParameteri(depth_buffer_id, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTextureParameteri(depth_buffer_id, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		glTextureStorage2D(depth_buffer_id, 1, GL_DEPTH_COMPONENT, width, height);
-
 		glNamedFramebufferTexture(id, GL_DEPTH_ATTACHMENT, depth_buffer_id, 0);
+
+		CMT_ASSERT(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "Incomplete framebuffer");
 #else
 		glBindFramebuffer(GL_FRAMEBUFFER, id);
 
@@ -114,9 +111,7 @@ namespace comet {
 		glGenTextures(1, &depth_buffer_id);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, depth_buffer_id);
-
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, width, height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, nullptr);
-
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depth_buffer_id, 0);
 
 		CMT_ASSERT(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "Incomplete framebuffer");
