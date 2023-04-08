@@ -34,9 +34,7 @@ project "Comet"
 
 
 	filter "system:windows"
-		systemversion "latest"	
-		pchheader "cmt_pch.h"
-		pchsource "src/cmt_pch.cpp"
+		systemversion "latest"
 		defines {
 			"CMT_PLATFORM_WINDOWS", 
 			"GLFW_INCLUDE_NONE"
@@ -49,7 +47,6 @@ project "Comet"
 		}
 
 	filter "system:macosx"
-		pchheader "src/cmt_pch.h"
 		defines {
 			"CMT_PLATFORM_MACOS", 
 			"GLFW_INCLUDE_NONE"

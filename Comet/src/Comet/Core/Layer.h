@@ -8,13 +8,13 @@ namespace comet {
 
 	class Layer {
 	public:
-		inline Layer() noexcept = default;
-		virtual ~Layer() noexcept = default;
+		inline Layer() = default;
+		virtual ~Layer() = default;
 
-		inline Layer(const Layer&) noexcept = delete;
-		inline Layer(const Layer&&) noexcept = delete;
-		inline Layer& operator=(const Layer&) noexcept = delete;
-		inline Layer& operator=(const Layer&&) noexcept = delete;
+		inline Layer(const Layer&) = delete;
+		inline Layer(const Layer&&) = delete;
+		inline Layer& operator=(const Layer&) = delete;
+		inline Layer& operator=(const Layer&&) = delete;
 
 		virtual void onAttatch() {}
 		virtual void onDetatch() {}

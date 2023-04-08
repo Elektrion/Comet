@@ -33,11 +33,6 @@ public:
 				comet::Renderer2D::drawQuad({ x, y, -0.9f }, { 1.0f, 1.0f }, 
 					background[(y + background_size_half) * background_size_half * 2 + (x + background_size_half)] ? grass_01_texture : grass_02_texture);
 
-		comet::Renderer2D::drawQuad({  5.0f,  5.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f, 1.0f, 1.0f });
-		comet::Renderer2D::drawQuad({ -5.0f, -5.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 0.0f, 0.0f, 1.0f });
-		comet::Renderer2D::drawQuad({  5.0f, -5.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f });
-		comet::Renderer2D::drawQuad({  5.0f,  5.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f, 1.0f, 1.0f });
-		comet::Renderer2D::drawQuad({ -5.0f,  5.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 0.0f, 1.0f, 1.0f });
 		comet::Renderer2D::drawQuad({  0.0f,  0.0f, 0.0f }, { 1.0f, 1.0f }, water_texture);
 		comet::Renderer2D::drawQuad({ 1.0f,  1.0f, 0.0f }, { 1.0f, 1.0f }, rotation, comet::SubTexture2D::create(water_texture, 0, 0, 8, 8));
 		comet::Renderer2D::drawLine({ 0.0f, 0.0f, 0.1f }, { 1.0f, 1.0f, 0.1f }, { 1.0f, 0.0f, 0.0f, 1.0f });
@@ -63,12 +58,49 @@ private:
 	float rotation = 0.25f;
 };
 
-
 class SandboxApplication : public comet::Application {
 public:
 	SandboxApplication() {
 		enableDockspace();
-		pushLayer(comet::createRef<SandboxLayer>());
+
+		auto editor_layer = comet::createRef<comet::EditorLayer>();
+		auto scene = comet::Scene::createScene();
+		scene->setBackgroundColor(0.3f, 0.1f, 0.7f);
+
+		auto camera_entity = scene->createEntity().chainAddComponent<comet::components::Name>("Camera");
+		auto camera_controller = camera_entity.addComponent<comet::OrthographicCameraController>(
+			comet::OrthographicCamera::create({ 0.0f, 0.0f, 0.0f }, 10.0f, comet::Application::get()->getWindow()->getAspectRatio()),
+			5.0f, 1.0f);
+		scene->setCamera(camera_controller->getCamera());
+
+		scene->createEntity()
+			.chainAddComponent<comet::components::Name>("Water thingy")
+			.chainAddComponent<comet::components::Transform>(glm::vec3{ 0.0f, 0.0f, 0.0f })
+			.chainAddComponent<comet::components::Sprite>(comet::Texture2D::create("water.png", true));
+
+		scene->createEntity()
+			.chainAddComponent<comet::components::Name>("Cyan thingy")
+			.chainAddComponent<comet::components::Transform>(glm::vec3{ 5.0f,  5.0f, 0.0f })
+			.chainAddComponent<comet::components::Sprite>(nullptr, glm::vec4{ 0.0f, 1.0f, 1.0f, 1.0f });
+
+		scene->createEntity()
+			.chainAddComponent<comet::components::Name>("Black thingy")
+			.chainAddComponent<comet::components::Transform>(glm::vec3{ -5.0f, -5.0f, 0.0f })
+			.chainAddComponent<comet::components::Sprite>(nullptr, glm::vec4{ 0.0f, 0.0f, 0.0f, 1.0f });
+
+		scene->createEntity()
+			.chainAddComponent<comet::components::Name>("Green thingy")
+			.chainAddComponent<comet::components::Transform>(glm::vec3{ 5.0f, -5.0f, 0.0f })
+			.chainAddComponent<comet::components::Sprite>(nullptr, glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
+
+		scene->createEntity()
+			.chainAddComponent<comet::components::Name>("Blue thingy")
+			.chainAddComponent<comet::components::Transform>(glm::vec3{ -5.0f,  5.0f, 0.0f })
+			.chainAddComponent<comet::components::Sprite>(nullptr, glm::vec4{ 0.0f, 0.0f, 1.0f, 1.0f });
+		
+		editor_layer->addScene("default_scene", scene);
+		editor_layer->setActiveScene("default_scene");
+		pushLayer(editor_layer);
 	}
 };
 

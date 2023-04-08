@@ -3,6 +3,7 @@
 #include "Comet/Core/Application.h"
 #include "Comet/Core/Assets.h"
 #include "Comet/Core/Core.h"
+#include "Comet/Core/EditorLayer.h"
 #include "Comet/Core/Input.h"
 #include "Comet/Core/Instrumentation.h"
 #include "Comet/Core/KeyCodes.h"
@@ -28,7 +29,8 @@
 #include "Comet/Renderer/Texture.h"
 #include "Comet/Renderer/VertexArray.h"
 
+#include "Comet/Scene/Components.h"
+#include "Comet/Scene/EntityComponentSystem.h"
 #include "Comet/Scene/OrthographicCamera.h"
 #include "Comet/Scene/OrthographicCameraController.h"
-#include "Comet/Scene/PerspectiveCamera.h"
-#include "Comet/Scene/PerspectiveCameraController.h"
+#include "Comet/Scene/Scene.h"
